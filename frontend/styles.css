@@ -90,6 +90,7 @@ main { width: 100%; max-width: 1320px; margin: auto; padding: 30px 14px calc(64p
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
+.intro > div { width: 100%; }
 .intro > div > p:last-child { max-width: none; margin: 0; color: var(--muted); line-height: 1.55; font-size: 14px; }
 .eyebrow { margin: 0 0 8px; color: var(--green); font-size: 9px; letter-spacing: .18em; font-weight: 800; }
 
@@ -480,7 +481,7 @@ form label { font-size: 12px; font-weight: 700; color: var(--muted); }
 
 @media (min-width: 900px) {
   header { position: static; height: 76px; padding-inline: max(24px, calc((100vw - 1320px) / 2)); }
-  .intro { display: flex; justify-content: space-between; align-items: end; margin-bottom: 26px; }
+  .intro { display: block; margin-bottom: 26px; }
   .intro h1 { max-width: none; }
   .intro > div > p:last-child { font-size: 16px; }
   .trust-note { grid-template-columns: 38px 1fr auto; padding: 14px 17px; }
