@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <meta name="theme-color" content="#071a18">
   <title>FalconScan — Customs terms, made clear</title>
-  <link rel="stylesheet" href="/static/styles.css?v=1.1">
+  <link rel="stylesheet" href="/static/styles.css?v=1.2">
 </head>
 <body>
   <header>
@@ -39,13 +39,13 @@
         <canvas id="captureCanvas" hidden></canvas>
         <div id="overlay" class="overlay"></div>
         <div class="corner tl"></div><div class="corner tr"></div><div class="corner bl"></div><div class="corner br"></div>
-        <div id="emptyState" class="empty-state"><div class="lens">◎</div><strong>Camera is ready when you are</strong><span>Position a customs document inside the frame</span><button id="startCamera" class="primary">Start camera</button></div>
+        <div id="emptyState" class="empty-state"><div class="lens">◎</div><strong>Camera is ready when you are</strong><span>Position a customs document inside the frame</span><button id="startCamera" class="primary">Start Camera</button><button id="startCameraPhone" class="primary phone-camera-btn" style="display:none">📷 Use Camera</button><input id="phoneCameraInput" type="file" accept="image/*" capture="environment" hidden></div>
         <div id="scanLine" class="scan-line"></div>
         <div id="statusPill" class="status-pill"><i></i><span>Camera off</span></div>
-        <div id="qualityPill" class="quality-pill">Waiting for camera</div>
+        <div id="qualityPill" class="quality-pill" hidden></div>
         <div id="selectionHint" class="selection-hint" hidden>Select or highlight document text for a live business insight</div>
         <button id="documentInfo" class="document-info" type="button" aria-label="Summarize this document" hidden><span aria-hidden="true">i</span></button>
-        <button id="detailsToggle" class="details-toggle" aria-expanded="false" aria-controls="scanDetails"><span>Scan</span><i aria-hidden="true">⌃</i></button>
+        <button id="detailsToggle" class="details-toggle" aria-expanded="false" aria-controls="scanDetails"><span aria-hidden="true">⊹</span><i aria-hidden="true">⌃</i></button>
       </div>
       <aside id="scanDetails" class="control-panel" aria-hidden="true">
         <button id="detailsClose" class="details-close" aria-label="Close scan details">×</button>
@@ -69,6 +69,6 @@
   <div id="adminModal" class="modal" aria-hidden="true"><div class="admin-card" role="dialog" aria-modal="true"><button class="close" data-close="adminModal">×</button><p class="eyebrow">KNOWLEDGE GOVERNANCE</p><h2>SME correction review</h2><p class="muted">Approve suggestions to make them the official definition.</p><div id="adminList" class="admin-list"></div></div></div>
   <div id="insightModal" class="modal" aria-hidden="true"><div class="insight-card" role="dialog" aria-modal="true" aria-labelledby="insightTitle"><button id="insightClose" class="close" aria-label="Close insight">×</button><p class="eyebrow">LIVE DOCUMENT INSIGHT</p><h2 id="insightTitle">Selection insight</h2><blockquote id="insightSelection"></blockquote><section><small>SUMMARY</small><p id="insightSummary"></p></section><section><small>BUSINESS MEANING</small><p id="insightBusiness"></p></section><div id="insightTerms" class="insight-terms"></div><div class="definition-meta"><span id="insightSource"></span><span id="insightConfidence"></span></div></div></div>
   <div id="toast" class="toast"></div>
-  <script src="/static/insights.js?v=1.1" defer></script><script src="/static/overlay.js?v=1.1" defer></script><script src="/static/feedback.js?v=1.1" defer></script><script src="/static/camera.js?v=1.1" defer></script>
+  <script src="/static/insights.js?v=1.2" defer></script><script src="/static/overlay.js?v=1.2" defer></script><script src="/static/feedback.js?v=1.2" defer></script><script src="/static/camera.js?v=1.2" defer></script>
 </body>
 </html>

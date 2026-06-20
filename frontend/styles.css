@@ -264,6 +264,7 @@ main { width: 100%; max-width: 1320px; margin: auto; padding: 30px 14px calc(64p
 }
 .status-pill { left: 12px; }
 .quality-pill { right: 12px; top: 58px; }
+.quality-pill[hidden] { display: none; }
 .status-pill i { display: inline-block; width: 7px; height: 7px; margin-right: 5px; background: #647570; border-radius: 50%; }
 
 /* Status pill indicator pulsing animation */
@@ -280,11 +281,12 @@ main { width: 100%; max-width: 1320px; margin: auto; padding: 30px 14px calc(64p
 /* Drawer Toggle Control */
 .details-toggle {
   position: absolute; z-index: 3; left: 50%; bottom: 14px; transform: translateX(-50%);
-  display: flex; align-items: center; gap: 8px; min-height: 42px;
-  border: 1px solid rgba(255, 255, 255, 0.16); padding: 8px 11px 8px 14px;
+  display: flex; align-items: center; gap: 6px; min-height: 36px;
+  border: 1px solid rgba(255, 255, 255, 0.16); padding: 7px 12px;
   background: rgba(14, 23, 21, 0.85); color: white; border-radius: 99px;
   backdrop-filter: saturate(160%) blur(16px); box-shadow: 0 8px 30px rgba(0,0,0,.4);
-  font-size: 11px; font-weight: 650; transition: border-color 0.2s, background 0.2s;
+  font-size: 14px; font-weight: 650; transition: border-color 0.2s, background 0.2s;
+  white-space: nowrap;
 }
 .details-toggle:hover {
   background: rgba(22, 38, 34, 0.95);

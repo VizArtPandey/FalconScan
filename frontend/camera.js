@@ -41,6 +41,7 @@
       $("#statusPill").classList.add("live");
       $("#statusPill span").textContent = "Live · private preview";
       $("#captureButton").disabled = false;
+      $("#qualityPill").hidden = false;
       setStatus("Camera ready", "Position the document inside the frame and hold still. Capture starts automatically when the page is clear.");
       requestAnimationFrame(monitor);
     } catch (error) {
@@ -87,6 +88,7 @@
         : !sharp ? "Move closer / focus"
         : !still ? "Hold steady"
         : stableFrames < 12 ? "Almost stable…" : "Frame stable";
+      $("#qualityPill").hidden = false;
 
       if (stableFrames >= 12 && !processing && Date.now() - lastAutoScan > 8000) {
         lastAutoScan = Date.now();
@@ -184,6 +186,7 @@
       $("#statusPill").classList.add("live");
       $("#statusPill span").textContent = "Uploaded · not stored";
       $("#qualityPill").textContent = file.name;
+      $("#qualityPill").hidden = false;
       $("#captureButton").disabled = true;
       renderAnalysis(data, data.frame_width, data.frame_height);
     } catch (error) {
@@ -266,13 +269,22 @@
 
   async function analyzeVlm() {
     $("#vlmButton").disabled = true;
-    const data = await fetch("/analyze-document-vlm", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ user_requested: true }),
-    }).then((response) => response.json());
-    toast(data.message);
-    setTimeout(() => { $("#vlmButton").disabled = false; }, 1200);
+    try {
+      const response = await fetch("/analyze-document-vlm", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ user_requested: true }),
+      });
+      const data = await response.json();
+      if (!response.ok) {
+        throw new Error(data.detail || "Full document analysis failed");
+      }
+      toast(data.message || "Analysis complete");
+    } catch (error) {
+      toast(error.message || "Full document analysis is not available on this device.");
+    } finally {
+      setTimeout(() => { $("#vlmButton").disabled = false; }, 1200);
+    }
   }
 
   function setStatus(title, message) {
@@ -292,7 +304,50 @@
     window.FalconFeedback.init();
     window.FalconInsights.init();
     setDetails(false);
+
+    // Detect touch/mobile device
+    const isMobile = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent) || ('ontouchstart' in window);
+    if (isMobile) {
+      $("#startCamera").style.display = "none";
+      $("#startCameraPhone").style.display = "";
+    }
+
     $("#startCamera").onclick = start;
+
+    // Mobile: use native camera input for photo capture
+    $("#startCameraPhone").onclick = () => {
+      $("#phoneCameraInput").click();
+    };
+    $("#phoneCameraInput").onchange = async (event) => {
+      const file = event.target.files?.[0];
+      event.target.value = "";
+      if (!file) return;
+      // Normalize to JPEG for iOS compatibility (HEIC/HEIF may not be supported server-side)
+      let processFile = file;
+      const mimeType = file.type.toLowerCase();
+      if (mimeType === "image/heic" || mimeType === "image/heif" || !file.name.match(/\.(jpg|jpeg|png|webp)$/i)) {
+        try {
+          const objectUrl = URL.createObjectURL(file);
+          const img = await new Promise((res, rej) => {
+            const image = new Image();
+            image.onload = () => res(image);
+            image.onerror = rej;
+            image.src = objectUrl;
+          });
+          const cvs = document.createElement("canvas");
+          cvs.width = img.naturalWidth; cvs.height = img.naturalHeight;
+          cvs.getContext("2d").drawImage(img, 0, 0);
+          const blob = await new Promise(res => cvs.toBlob(res, "image/jpeg", 0.85));
+          URL.revokeObjectURL(objectUrl);
+          processFile = new File([blob], "camera-photo.jpg", { type: "image/jpeg" });
+        } catch (_) {
+          // fallback: try passing original
+          processFile = new File([file], "camera-photo.jpg", { type: "image/jpeg" });
+        }
+      }
+      handleUpload({ target: { files: [processFile], value: "" } });
+    };
+
     $("#captureButton").onclick = analyze;
     $("#vlmButton").onclick = analyzeVlm;
     $("#detailsToggle").onclick = () => setDetails(!$("#scannerShell").classList.contains("details-open"));
