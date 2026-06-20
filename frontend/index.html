@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#071a18">
+  <title>FalconScan — Customs terms, made clear</title>
+  <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+  <header>
+    <a class="brand" href="#"><span class="mark">F</span><span>FalconScan<small>Customs intelligence</small></span></a>
+    <div class="header-actions">
+      <select id="language" aria-label="Definition language"><option value="en">English</option><option value="ar">العربية</option></select>
+      <button class="ghost" id="adminButton" aria-label="Open SME review queue">SME review <span id="reviewCount" class="count" hidden>0</span></button>
+    </div>
+  </header>
+
+  <main>
+    <section class="intro">
+      <div><p class="eyebrow">LIVE DOCUMENT ASSISTANT</p><h1>Point. Pause. Understand.</h1>
+        <p>FalconScan finds customs and freight terminology on physical documents, then explains it without taking you away from the camera.</p></div>
+    </section>
+
+    <aside class="trust-note" aria-label="Privacy note">
+      <span class="trust-icon" aria-hidden="true">✓</span>
+      <div><strong>Private by design</strong><p>Document frames are analyzed only to identify terminology. FalconScan does not store the captured image.</p></div>
+      <span class="trust-label">ON-DEVICE FIRST</span>
+    </aside>
+
+    <section id="scannerShell" class="scanner-shell details-closed">
+      <div id="viewport" class="viewport">
+        <video id="video" autoplay muted playsinline></video>
+        <div id="documentScroller" class="document-scroller" hidden>
+          <div id="documentStage" class="document-stage">
+            <img id="uploadedPreview" class="uploaded-preview" alt="Uploaded customs document preview">
+          </div>
+        </div>
+        <canvas id="captureCanvas" hidden></canvas>
+        <div id="overlay" class="overlay"></div>
+        <div class="corner tl"></div><div class="corner tr"></div><div class="corner bl"></div><div class="corner br"></div>
+        <div id="emptyState" class="empty-state"><div class="lens">◎</div><strong>Camera is ready when you are</strong><span>Position a customs document inside the frame</span><button id="startCamera" class="primary">Start camera</button></div>
+        <div id="scanLine" class="scan-line"></div>
+        <div id="statusPill" class="status-pill"><i></i><span>Camera off</span></div>
+        <div id="qualityPill" class="quality-pill">Waiting for camera</div>
+        <div id="selectionHint" class="selection-hint" hidden>Select or highlight document text for a live business insight</div>
+        <button id="documentInfo" class="document-info" type="button" aria-label="Summarize this document" hidden><span aria-hidden="true">i</span><b>Document info</b></button>
+        <button id="detailsToggle" class="details-toggle" aria-expanded="false" aria-controls="scanDetails"><span>Scan details</span><i aria-hidden="true">⌃</i></button>
+      </div>
+      <aside id="scanDetails" class="control-panel" aria-hidden="true">
+        <button id="detailsClose" class="details-close" aria-label="Close scan details">×</button>
+        <div class="panel-heading"><div><p class="eyebrow">SCAN STATUS</p><h2 id="resultTitle">Ready when you are</h2></div></div>
+        <div id="statusMessage" class="status-message">Use the camera or upload a document. Hold camera documents steady for automatic capture.</div>
+        <div id="termsList" class="terms-list"><div class="instruction-card"><strong>How it works</strong><p>Scan or upload, then tap any dot on the document for a clear business explanation.</p></div></div>
+        <div class="upload-card">
+          <div><strong>Have a digital document?</strong><span>Upload JPG, PNG, WebP, PDF, or Word DOCX.</span></div>
+          <button id="uploadButton" type="button">Upload document</button>
+          <input id="documentUpload" type="file" accept="image/jpeg,image/png,image/webp,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document,.docx" hidden>
+        </div>
+        <div class="panel-actions"><button id="captureButton" disabled>Scan now</button><button id="vlmButton" class="secondary" disabled>Analyze full document</button></div>
+      </aside>
+    </section>
+
+    <section class="trust-row"><div><b>EN + AR</b><span>Bilingual OCR</span></div><div><b>LOCAL FIRST</b><span>Glossary lookup</span></div><div><b>HUMAN LED</b><span>SME-approved knowledge</span></div><div><b>CPU READY</b><span>Built for free Spaces</span></div></section>
+  </main>
+
+  <div id="definitionModal" class="modal" aria-hidden="true"><div class="definition-card" role="dialog" aria-modal="true"><button class="close" data-close="definitionModal">×</button><p class="eyebrow" id="definitionCategory">CUSTOMS TERM</p><h2 id="definitionTerm"></h2><p id="definitionFullForm" class="full-form"></p><p id="definitionText" class="definition-text"></p><div class="definition-meta"><span id="definitionSource"></span><span id="definitionConfidence"></span></div><div class="related" id="relatedTerms"></div><div class="feedback-row"><span>Was this useful?</span><button id="thumbUp" aria-label="Helpful">↑</button><button id="thumbDown" aria-label="Incorrect">↓</button></div><form id="correctionForm" hidden><label>Suggest a clearer, correct definition<textarea id="correctionText" required maxlength="2000"></textarea></label><button class="primary" type="submit">Save for review</button></form><p id="feedbackMessage" class="feedback-message"></p></div></div>
+
+  <div id="adminModal" class="modal" aria-hidden="true"><div class="admin-card" role="dialog" aria-modal="true"><button class="close" data-close="adminModal">×</button><p class="eyebrow">KNOWLEDGE GOVERNANCE</p><h2>SME correction review</h2><p class="muted">Approve suggestions to make them the official definition.</p><div id="adminList" class="admin-list"></div></div></div>
+  <div id="insightModal" class="modal" aria-hidden="true"><div class="insight-card" role="dialog" aria-modal="true" aria-labelledby="insightTitle"><button id="insightClose" class="close" aria-label="Close insight">×</button><p class="eyebrow">LIVE DOCUMENT INSIGHT</p><h2 id="insightTitle">Selection insight</h2><blockquote id="insightSelection"></blockquote><section><small>SUMMARY</small><p id="insightSummary"></p></section><section><small>BUSINESS MEANING</small><p id="insightBusiness"></p></section><div id="insightTerms" class="insight-terms"></div><div class="definition-meta"><span id="insightSource"></span><span id="insightConfidence"></span></div></div></div>
+  <div id="toast" class="toast"></div>
+  <script src="/static/insights.js"></script><script src="/static/overlay.js"></script><script src="/static/feedback.js"></script><script src="/static/camera.js"></script>
+</body>
+</html>

@@ -1,0 +1,123 @@
+{
+  "B/L": {
+    "aliases": ["BL", "Bill of Lading", "بوليصة شحن"],
+    "full_form": "Bill of Lading",
+    "definition": "A carrier-issued document that records the goods shipped, transport terms, and who may receive the cargo.",
+    "definition_ar": "مستند يصدره الناقل يوضح البضائع المشحونة وشروط النقل والجهة التي يحق لها استلامها.",
+    "category": "Shipping Documents", "related_terms": ["Shipper", "Consignee", "Manifest"],
+    "document_types": ["Bill of Lading", "Manifest"], "source": "verified_glossary"
+  },
+  "MAWB": {
+    "aliases": ["Master Air Waybill", "Master AWB", "بوليصة الشحن الجوي الرئيسية"],
+    "full_form": "Master Air Waybill",
+    "definition": "The main air cargo transport document issued by an airline or carrier for a consolidated shipment.",
+    "definition_ar": "مستند النقل الجوي الرئيسي الذي تصدره شركة الطيران أو الناقل لشحنة مجمعة.",
+    "category": "Air Cargo", "related_terms": ["HAWB", "Carrier", "Consignee", "Shipper"],
+    "document_types": ["Air Waybill", "Manifest"], "source": "verified_glossary"
+  },
+  "HAWB": {
+    "aliases": ["House Air Waybill", "House AWB", "بوليصة شحن جوي فرعية"],
+    "full_form": "House Air Waybill",
+    "definition": "An air cargo document issued by a freight forwarder for an individual shipment within a consolidated load.",
+    "definition_ar": "مستند شحن جوي يصدره وكيل الشحن لشحنة فردية ضمن شحنة مجمعة.",
+    "category": "Air Cargo", "related_terms": ["MAWB", "Freight Forwarder"], "document_types": ["Air Waybill"], "source": "verified_glossary"
+  },
+  "HS Code": {
+    "aliases": ["HS", "Harmonized System Code", "Harmonised System Code", "رمز النظام المنسق", "الرمز المنسق"],
+    "full_form": "Harmonized System Code",
+    "definition": "A standard code used to classify traded goods for customs duty and import or export rules.",
+    "definition_ar": "رمز معياري لتصنيف السلع المتداولة وتحديد الرسوم الجمركية وقواعد الاستيراد أو التصدير.",
+    "category": "Customs Classification", "related_terms": ["Customs Duty", "Tariff", "Commodity"],
+    "document_types": ["Customs Declaration", "Commercial Invoice"], "source": "verified_glossary"
+  },
+  "CIF": {
+    "aliases": ["Cost Insurance and Freight", "التكلفة والتأمين وأجرة الشحن"], "full_form": "Cost, Insurance and Freight",
+    "definition": "An Incoterm where the seller pays cost, marine insurance, and freight to the named destination port.",
+    "definition_ar": "شرط تجاري يدفع فيه البائع التكلفة والتأمين البحري والشحن حتى ميناء الوجهة المحدد.",
+    "category": "Incoterms", "related_terms": ["FOB", "Incoterms"], "document_types": ["Commercial Invoice"], "source": "verified_glossary"
+  },
+  "FOB": {
+    "aliases": ["Free On Board", "التسليم على ظهر السفينة"], "full_form": "Free On Board",
+    "definition": "An Incoterm where risk transfers to the buyer once goods are loaded aboard the vessel at the named port.",
+    "definition_ar": "شرط تجاري تنتقل فيه المخاطر إلى المشتري بعد تحميل البضاعة على السفينة في الميناء المحدد.",
+    "category": "Incoterms", "related_terms": ["CIF", "Incoterms"], "document_types": ["Commercial Invoice"], "source": "verified_glossary"
+  },
+  "COO": {
+    "aliases": ["Certificate of Origin", "شهادة المنشأ"], "full_form": "Certificate of Origin",
+    "definition": "A document certifying the country where goods were produced or manufactured.",
+    "definition_ar": "مستند يثبت الدولة التي أُنتجت أو صُنعت فيها البضائع.",
+    "category": "Trade Documents", "related_terms": ["Commercial Invoice", "Exporter"], "document_types": ["Certificate of Origin"], "source": "verified_glossary"
+  },
+  "TIR": {
+    "aliases": ["Transports Internationaux Routiers", "النقل البري الدولي"], "full_form": "Transports Internationaux Routiers",
+    "definition": "An international customs transit system that lets sealed road cargo cross participating borders with simplified checks.",
+    "definition_ar": "نظام عبور جمركي دولي يتيح للبضائع البرية المختومة عبور حدود الدول المشاركة بإجراءات مبسطة.",
+    "category": "Customs Transit", "related_terms": ["Bonded Warehouse", "Manifest"], "document_types": ["TIR Carnet"], "source": "verified_glossary"
+  },
+  "FZE": {
+    "aliases": ["Free Zone Establishment", "مؤسسة منطقة حرة"], "full_form": "Free Zone Establishment",
+    "definition": "A legal entity registered in a UAE free zone, typically owned by one shareholder.",
+    "definition_ar": "كيان قانوني مسجل في منطقة حرة بدولة الإمارات ويكون عادةً مملوكاً لمساهم واحد.",
+    "category": "Free Zones", "related_terms": ["Free Zone", "Importer"], "document_types": ["Trade License"], "source": "verified_glossary"
+  },
+  "Bonded Warehouse": {
+    "aliases": ["Customs Bonded Warehouse", "مستودع جمركي", "مستودع مرخص"],
+    "definition": "An authorized facility where imported goods can be stored before customs duty is paid or the goods are re-exported.",
+    "definition_ar": "منشأة مرخصة تُخزن فيها البضائع المستوردة قبل دفع الرسوم الجمركية أو إعادة تصديرها.",
+    "category": "Customs Facilities", "related_terms": ["Customs Duty", "TIR"], "document_types": ["Warehouse Entry"], "source": "verified_glossary"
+  },
+  "Customs Duty": {
+    "aliases": ["Import Duty", "Duty", "الرسوم الجمركية"],
+    "definition": "A tax charged by customs on imported or, in some cases, exported goods.",
+    "definition_ar": "ضريبة تفرضها الجمارك على البضائع المستوردة، وفي بعض الحالات المصدرة.",
+    "category": "Customs Charges", "related_terms": ["HS Code", "CIF"], "document_types": ["Customs Declaration"], "source": "verified_glossary"
+  },
+  "Consignee": {
+    "aliases": ["Receiver", "المرسل إليه", "المستلم"],
+    "definition": "The person or company named to receive the shipped goods.",
+    "definition_ar": "الشخص أو الشركة المذكورة لاستلام البضائع المشحونة.",
+    "category": "Shipment Parties", "related_terms": ["Shipper", "Carrier"], "document_types": ["Bill of Lading", "Air Waybill"], "source": "verified_glossary"
+  },
+  "Shipper": {
+    "aliases": ["Consignor", "المرسل", "الشاحن"],
+    "definition": "The person or company that sends the goods and is named on the transport document.",
+    "definition_ar": "الشخص أو الشركة التي ترسل البضائع ويظهر اسمها في مستند النقل.",
+    "category": "Shipment Parties", "related_terms": ["Consignee", "Carrier"], "document_types": ["Bill of Lading", "Air Waybill"], "source": "verified_glossary"
+  },
+  "Manifest": {
+    "aliases": ["Cargo Manifest", "بيان الشحنة", "قائمة الشحن"],
+    "definition": "A consolidated list of cargo, passengers, or containers carried by a vessel, aircraft, or vehicle.",
+    "definition_ar": "قائمة مجمعة بالبضائع أو الركاب أو الحاويات التي تنقلها سفينة أو طائرة أو مركبة.",
+    "category": "Shipping Documents", "related_terms": ["B/L", "MAWB"], "document_types": ["Manifest"], "source": "verified_glossary"
+  },
+  "Declaration Number": {
+    "aliases": ["Customs Declaration Number", "رقم البيان", "رقم البيان الجمركي"],
+    "definition": "The unique reference assigned to a customs declaration for tracking and clearance.",
+    "definition_ar": "المرجع الفريد المخصص للبيان الجمركي لأغراض التتبع والتخليص.",
+    "category": "Customs Clearance", "related_terms": ["Customs Declaration"], "document_types": ["Customs Declaration"], "source": "verified_glossary"
+  },
+  "Incoterms": {
+    "aliases": ["International Commercial Terms", "شروط التجارة الدولية"],
+    "definition": "Standard trade rules defining how delivery costs, tasks, and risks are split between seller and buyer.",
+    "definition_ar": "قواعد تجارية معيارية تحدد توزيع تكاليف ومهام ومخاطر التسليم بين البائع والمشتري.",
+    "category": "Trade Terms", "related_terms": ["CIF", "FOB"], "document_types": ["Commercial Invoice", "Sales Contract"], "source": "verified_glossary"
+  },
+  "Delivery Order": {
+    "aliases": ["D/O", "DO", "أمر تسليم", "إذن التسليم"],
+    "definition": "An instruction authorizing a terminal or carrier to release cargo to the named recipient.",
+    "definition_ar": "تعليمات تجيز للمحطة أو الناقل الإفراج عن البضاعة للمستلم المحدد.",
+    "category": "Cargo Release", "related_terms": ["Consignee", "B/L"], "document_types": ["Delivery Order"], "source": "verified_glossary"
+  },
+  "Packing List": {
+    "aliases": ["قائمة التعبئة", "بيان التعبئة"],
+    "definition": "A detailed list of package contents, quantities, weights, and dimensions in a shipment.",
+    "definition_ar": "قائمة تفصيلية بمحتويات الطرود والكميات والأوزان والأبعاد في الشحنة.",
+    "category": "Trade Documents", "related_terms": ["Commercial Invoice"], "document_types": ["Packing List"], "source": "verified_glossary"
+  },
+  "Commercial Invoice": {
+    "aliases": ["Trade Invoice", "فاتورة تجارية"],
+    "definition": "The seller's bill showing the goods, parties, prices, currency, and trade terms used for customs valuation.",
+    "definition_ar": "فاتورة البائع التي توضح البضائع والأطراف والأسعار والعملة والشروط التجارية المستخدمة للتقييم الجمركي.",
+    "category": "Trade Documents", "related_terms": ["Packing List", "HS Code", "COO"], "document_types": ["Commercial Invoice"], "source": "verified_glossary"
+  }
+}
