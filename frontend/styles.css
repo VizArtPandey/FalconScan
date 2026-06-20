@@ -14,11 +14,12 @@
 }
 
 * { box-sizing: border-box; }
-html { scroll-behavior: smooth; }
+html { min-height: 100%; scroll-behavior: smooth; background: var(--paper); }
 body {
   margin: 0;
+  min-height: 100vh;
   min-width: 320px;
-  background: radial-gradient(circle at 50% -20%, #172c26 0%, var(--paper) 68%);
+  background: var(--paper);
   color: var(--ink);
   font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", Inter, ui-sans-serif, system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -376,8 +377,8 @@ main { width: 100%; max-width: 1320px; margin: auto; padding: 30px 14px calc(64p
   box-shadow: none;
 }
 
-.trust-row { display: grid; grid-template-columns: 1fr 1fr; margin-top: 18px; overflow: hidden; border: 1px solid var(--line); background: var(--glass); border-radius: 16px; box-shadow: var(--shadow); }
-.trust-row div { display: flex; flex-direction: column; padding: 15px; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.trust-row { display: grid; grid-template-columns: 1fr 1fr; margin-top: 18px; overflow: hidden; border: 1px solid rgba(255,255,255,0.04); background: transparent; border-radius: 16px; }
+.trust-row div { display: flex; flex-direction: column; padding: 15px; border-right: 1px solid rgba(255,255,255,0.05); border-bottom: 1px solid rgba(255,255,255,0.05); }
 .trust-row div:nth-child(2n) { border-right: 0; }
 .trust-row div:nth-last-child(-n+2) { border-bottom: 0; }
 .trust-row b { color: var(--lime); font-size: 9px; letter-spacing: .1em; font-weight: 700; }
@@ -502,7 +503,7 @@ form label { font-size: 12px; font-weight: 700; color: var(--muted); }
   .terms-list { flex: 1; max-height: 300px; }
   
   .trust-row { grid-template-columns: repeat(4, 1fr); margin-top: 20px; }
-  .trust-row div, .trust-row div:nth-child(2n) { border-right: 1px solid var(--line); border-bottom: 0; padding: 18px 24px; }
+  .trust-row div, .trust-row div:nth-child(2n) { border-right: 1px solid rgba(255,255,255,0.05); border-bottom: 0; padding: 18px 24px; }
   .trust-row div:last-child { border-right: 0; }
 }
 
@@ -513,4 +514,3 @@ form label { font-size: 12px; font-weight: 700; color: var(--muted); }
 .conf-good { color: var(--lime) !important; font-weight: 700; }
 .conf-neutral { color: #f59e0b !important; font-weight: 600; }
 .conf-bad { color: #ef4444 !important; font-weight: 600; }
-
