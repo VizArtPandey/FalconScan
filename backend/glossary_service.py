@@ -26,26 +26,57 @@ class GlossaryService:
         self.corrections_path = corrections_path
         self.approved_path = approved_path
         self.lock = RLock()
+        self._glossary_cache = None
+        self._aliases_cache = None
+        self._corrections_cache = None
+        self._corrections_mtime = 0.0
+        self._approved_cache = None
+        self._approved_mtime = 0.0
+        self._init_glossary()
+
+    def _init_glossary(self):
+        with self.lock:
+            self._glossary_cache = self._read(self.glossary_path)
+            self._aliases_cache = {}
+            for canonical, entry in self._glossary_cache.items():
+                for alias in [canonical, *entry.get("aliases", [])]:
+                    self._aliases_cache[normalize(alias)] = canonical
 
     @staticmethod
     def _read(path: Path) -> dict:
-        return json.loads(path.read_text(encoding="utf-8"))
+        try:
+            return json.loads(path.read_text(encoding="utf-8"))
+        except FileNotFoundError:
+            return {}
 
-    def _index(self) -> tuple[dict, dict]:
-        glossary = self._read(self.glossary_path)
-        aliases: dict[str, str] = {}
-        for canonical, entry in glossary.items():
-            for alias in [canonical, *entry.get("aliases", [])]:
-                aliases[normalize(alias)] = canonical
-        return glossary, aliases
+    def _get_corrections(self) -> dict:
+        try:
+            mtime = self.corrections_path.stat().st_mtime
+        except FileNotFoundError:
+            mtime = 0.0
+        if self._corrections_cache is None or mtime > self._corrections_mtime:
+            with self.lock:
+                self._corrections_cache = self._read(self.corrections_path)
+                self._corrections_mtime = mtime
+        return self._corrections_cache
+
+    def _get_approved(self) -> dict:
+        try:
+            mtime = self.approved_path.stat().st_mtime
+        except FileNotFoundError:
+            mtime = 0.0
+        if self._approved_cache is None or mtime > self._approved_mtime:
+            with self.lock:
+                self._approved_cache = self._read(self.approved_path)
+                self._approved_mtime = mtime
+        return self._approved_cache
 
     def find_match(self, text: str, threshold: float = 0.78) -> dict | None:
-        glossary, aliases = self._index()
         target = normalize(text)
         if not target:
             return None
         # Prefer longest contained phrases, then fuzzy matching for OCR errors.
-        contained = [(alias, canonical) for alias, canonical in aliases.items()
+        contained = [(alias, canonical) for alias, canonical in self._aliases_cache.items()
                      if alias and re.search(rf"(?<!\w){re.escape(alias)}(?!\w)", target)]
         match_type, score = "exact", 1.0
         if contained:
@@ -53,14 +84,14 @@ class GlossaryService:
             match_type = "exact" if alias == target else "phrase"
         else:
             alias, canonical, score = "", "", 0.0
-            for candidate, name in aliases.items():
+            for candidate, name in self._aliases_cache.items():
                 candidate_score = SequenceMatcher(None, target, candidate).ratio()
                 if candidate_score > score:
                     alias, canonical, score = candidate, name, candidate_score
             if score < threshold:
                 return None
             match_type = "fuzzy"
-        return {"canonical": canonical, "entry": glossary[canonical],
+        return {"canonical": canonical, "entry": self._glossary_cache[canonical],
                 "match_type": match_type, "match_confidence": round(score, 3)}
 
     def definition(self, term: str) -> dict | None:
@@ -68,8 +99,8 @@ class GlossaryService:
             matched = self.find_match(term)
             canonical = matched["canonical"] if matched else term
             norm = normalize(canonical)
-            approved = self._read(self.approved_path)
-            corrections = self._read(self.corrections_path)
+            approved = self._get_approved()
+            corrections = self._get_corrections()
             # SME approval is official and intentionally overrides pending user correction.
             selected = next((v for k, v in approved.items() if normalize(k) == norm), None)
             if selected:
@@ -82,8 +113,8 @@ class GlossaryService:
                 return self._response(canonical, item, "user_corrected", 0.9, matched)
             if matched:
                 return self._response(canonical, matched["entry"],
-                                      matched["entry"].get("source", "verified_glossary"),
-                                      matched["match_confidence"], matched)
+                                       matched["entry"].get("source", "verified_glossary"),
+                                       matched["match_confidence"], matched)
             return None
 
     @staticmethod
@@ -117,7 +148,7 @@ class GlossaryService:
 
     def match_regions(self, regions: list[dict]) -> list[dict]:
         """Find every known canonical term inside positioned text regions."""
-        _, aliases = self._index()
+        aliases = self._aliases_cache
         found: list[dict] = []
         seen: set[tuple[str, tuple[int, ...]]] = set()
         for region in regions:

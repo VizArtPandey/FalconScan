@@ -172,7 +172,7 @@ class DocumentService:
     @staticmethod
     def _result(image: Image.Image, terms: list, detections: list, unknown: list, method: str) -> dict:
         output = io.BytesIO()
-        image.save(output, format="JPEG", quality=80, optimize=True)
+        image.save(output, format="JPEG", quality=70, optimize=True)
         return {
             "detected_terms": terms,
             "ocr_items": detections,

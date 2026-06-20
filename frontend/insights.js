@@ -25,7 +25,10 @@ window.FalconInsights = (() => {
       $("#insightSummary").textContent = data.summary;
       $("#insightBusiness").textContent = data.business_meaning;
       $("#insightSource").textContent = data.source_label;
-      $("#insightConfidence").textContent = `${Math.round(data.confidence * 100)}% confidence`;
+      const confPercent = Math.round(data.confidence * 100);
+      const confEl = $("#insightConfidence");
+      confEl.textContent = `${confPercent}% confidence`;
+      confEl.className = 'confidence-score ' + (confPercent >= 90 ? 'conf-good' : confPercent >= 70 ? 'conf-neutral' : 'conf-bad');
       $("#insightTerms").innerHTML = (data.recognized_terms || []).map((item) => `<button type="button" data-term="${escapeHtml(item.term)}">${escapeHtml(item.term)}</button>`).join("");
       $("#insightTerms").querySelectorAll("button").forEach((button) => {
         button.onclick = () => {

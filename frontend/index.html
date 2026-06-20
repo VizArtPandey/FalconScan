@@ -19,7 +19,7 @@
   <main>
     <section class="intro">
       <div><p class="eyebrow">LIVE DOCUMENT ASSISTANT</p><h1>Point. Pause. Understand.</h1>
-        <p>FalconScan finds customs and freight terminology on physical documents, then explains it without taking you away from the camera.</p></div>
+        <p>FalconScan is a premium customs intelligence assistant designed to empower Dubai Customs officers in their daily operations. By scanning and explaining complex freight and clearance terminology directly on physical documents, it simplifies workflows, enhances decision confidence, and makes daily customs tasks seamless and efficient.</p></div>
     </section>
 
     <aside class="trust-note" aria-label="Privacy note">
@@ -64,11 +64,11 @@
     <section class="trust-row"><div><b>EN + AR</b><span>Bilingual OCR</span></div><div><b>LOCAL FIRST</b><span>Glossary lookup</span></div><div><b>HUMAN LED</b><span>SME-approved knowledge</span></div><div><b>CPU READY</b><span>Built for free Spaces</span></div></section>
   </main>
 
-  <div id="definitionModal" class="modal" aria-hidden="true"><div class="definition-card" role="dialog" aria-modal="true"><button class="close" data-close="definitionModal">×</button><p class="eyebrow" id="definitionCategory">CUSTOMS TERM</p><h2 id="definitionTerm"></h2><p id="definitionFullForm" class="full-form"></p><p id="definitionText" class="definition-text"></p><div class="definition-meta"><span id="definitionSource"></span><span id="definitionConfidence"></span></div><div class="related" id="relatedTerms"></div><div class="feedback-row"><span>Was this useful?</span><button id="thumbUp" aria-label="Helpful">↑</button><button id="thumbDown" aria-label="Incorrect">↓</button></div><form id="correctionForm" hidden><label>Suggest a clearer, correct definition<textarea id="correctionText" required maxlength="2000"></textarea></label><button class="primary" type="submit">Save for review</button></form><p id="feedbackMessage" class="feedback-message"></p></div></div>
+  <div id="definitionModal" class="modal" aria-hidden="true"><div class="definition-card" role="dialog" aria-modal="true"><button class="close" data-close="definitionModal">×</button><p class="eyebrow" id="definitionCategory">CUSTOMS TERM</p><h2 id="definitionTerm"></h2><p id="definitionFullForm" class="full-form"></p><p id="definitionText" class="definition-text"></p><div class="definition-meta"><span id="definitionSource"></span><span id="definitionConfidence"></span></div><div class="related" id="relatedTerms"></div><div class="feedback-row"><span>Was this useful?</span><button id="thumbUp" aria-label="Helpful">👍</button><button id="thumbDown" aria-label="Incorrect">👎</button></div><form id="correctionForm" hidden><label>Suggest a clearer, correct definition<textarea id="correctionText" required maxlength="2000"></textarea></label><button class="primary" type="submit">Save for review</button></form><p id="feedbackMessage" class="feedback-message"></p></div></div>
 
   <div id="adminModal" class="modal" aria-hidden="true"><div class="admin-card" role="dialog" aria-modal="true"><button class="close" data-close="adminModal">×</button><p class="eyebrow">KNOWLEDGE GOVERNANCE</p><h2>SME correction review</h2><p class="muted">Approve suggestions to make them the official definition.</p><div id="adminList" class="admin-list"></div></div></div>
   <div id="insightModal" class="modal" aria-hidden="true"><div class="insight-card" role="dialog" aria-modal="true" aria-labelledby="insightTitle"><button id="insightClose" class="close" aria-label="Close insight">×</button><p class="eyebrow">LIVE DOCUMENT INSIGHT</p><h2 id="insightTitle">Selection insight</h2><blockquote id="insightSelection"></blockquote><section><small>SUMMARY</small><p id="insightSummary"></p></section><section><small>BUSINESS MEANING</small><p id="insightBusiness"></p></section><div id="insightTerms" class="insight-terms"></div><div class="definition-meta"><span id="insightSource"></span><span id="insightConfidence"></span></div></div></div>
   <div id="toast" class="toast"></div>
-  <script src="/static/insights.js"></script><script src="/static/overlay.js"></script><script src="/static/feedback.js"></script><script src="/static/camera.js"></script>
+  <script src="/static/insights.js" defer></script><script src="/static/overlay.js" defer></script><script src="/static/feedback.js" defer></script><script src="/static/camera.js" defer></script>
 </body>
 </html>

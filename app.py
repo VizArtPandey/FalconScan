@@ -9,6 +9,7 @@ from typing import Optional
 from fastapi import FastAPI, HTTPException
 from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
+from fastapi.middleware.gzip import GZipMiddleware
 from pydantic import BaseModel, Field
 
 from backend.ai_definition_service import AIDefinitionService
@@ -25,8 +26,17 @@ ROOT = Path(__file__).parent
 DATA = ROOT / "data"
 logging.basicConfig(level=logging.INFO)
 
+
+class CacheControlledStaticFiles(StaticFiles):
+    def file_response(self, *args, **kwargs):
+        response = super().file_response(*args, **kwargs)
+        response.headers["Cache-Control"] = "public, max-age=86400"
+        return response
+
+
 app = FastAPI(title="FalconScan", version="1.0.0", description="CPU-first customs terminology camera assistant")
-app.mount("/static", StaticFiles(directory=ROOT / "frontend"), name="static")
+app.add_middleware(GZipMiddleware, minimum_size=1000)
+app.mount("/static", CacheControlledStaticFiles(directory=ROOT / "frontend"), name="static")
 
 ocr = OCRService()
 Thread(target=ocr.warmup, daemon=True, name="falconscan-ocr-warmup").start()

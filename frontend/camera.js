@@ -113,7 +113,7 @@
     setStatus("Finding document terms", source === "upload" ? "Reading the uploaded page securely." : "Reading one clear camera frame.");
     showProgress("Recognizing text and matching business terminology…");
     const payload = {
-      image_base64: canvas.toDataURL("image/jpeg", 0.86),
+      image_base64: canvas.toDataURL("image/jpeg", 0.75),
       frame_width: canvas.width,
       frame_height: canvas.height,
       language_preference: $("#language").value,
@@ -227,7 +227,7 @@
       canvas.width = Math.max(1, Math.round(image.naturalWidth * scale));
       canvas.height = Math.max(1, Math.round(image.naturalHeight * scale));
       canvas.getContext("2d").drawImage(image, 0, 0, canvas.width, canvas.height);
-      const blob = await new Promise((resolve) => canvas.toBlob(resolve, "image/jpeg", 0.80));
+      const blob = await new Promise((resolve) => canvas.toBlob(resolve, "image/jpeg", 0.70));
       return { base64: await readBase64(blob), filename: "optimized-upload.jpg" };
     } finally {
       URL.revokeObjectURL(objectUrl);

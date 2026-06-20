@@ -6,6 +6,7 @@ window.FalconOverlay = (() => {
   let uploadedPreview;
   let documentScroller;
   let activePopover = null;
+  let currentDotIndex = 0;
 
   function init() {
     viewport = document.querySelector("#viewport");
@@ -38,6 +39,7 @@ window.FalconOverlay = (() => {
     terms = items;
     overlay.innerHTML = "";
     activePopover = null;
+    currentDotIndex = 0;
     const layout = geometry(frameWidth, frameHeight);
     renderSelectionLayer(textRegions, layout);
     renderMarkers(items, layout);
@@ -46,44 +48,49 @@ window.FalconOverlay = (() => {
 
   function renderMarkers(items, layout) {
     if (!items.length) return;
-    const visible = [...items].sort((a, b) => b.confidence - a.confidence).slice(0, 3);
-    const occupied = [];
+    const sorted = [...items].sort((a, b) => b.confidence - a.confidence);
+    renderSingleMarker(sorted, layout);
+  }
 
-    visible.forEach((item, index) => {
-      const [x1, y1, x2, y2] = item.bbox;
-      let left = layout.offsetX + x2 * layout.scale + 7;
-      let top = layout.offsetY + ((y1 + y2) / 2) * layout.scale - 12;
-      if (left > layout.viewRect.width - 34) left = layout.offsetX + x1 * layout.scale - 31;
-      left = clamp(left, 7, layout.viewRect.width - 31);
-      top = clamp(top, 46, layout.viewRect.height - 38);
-      let attempts = 0;
-      while (occupied.some((point) => Math.hypot(point.left - left, point.top - top) < 31) && attempts < 12) {
-        top = clamp(top + 32, 46, layout.viewRect.height - 38);
-        if (top >= layout.viewRect.height - 39) left = clamp(left - 34, 7, layout.viewRect.width - 31);
-        attempts += 1;
+  function renderSingleMarker(sortedItems, layout) {
+    // Remove existing non-user markers
+    overlay.querySelectorAll(".term-marker:not(.user-triggered)").forEach(m => m.remove());
+    if (!sortedItems.length) return;
+
+    const item = sortedItems[currentDotIndex % sortedItems.length];
+    const [x1, y1, x2, y2] = item.bbox;
+    let left = layout.offsetX + x2 * layout.scale + 7;
+    let top = layout.offsetY + ((y1 + y2) / 2) * layout.scale - 12;
+    if (left > layout.viewRect.width - 34) left = layout.offsetX + x1 * layout.scale - 31;
+    left = clamp(left, 7, layout.viewRect.width - 31);
+    top = clamp(top, 46, layout.viewRect.height - 38);
+
+    const marker = document.createElement("button");
+    marker.className = "term-marker";
+    marker.type = "button";
+    marker.style.left = `${left}px`;
+    marker.style.top = `${top}px`;
+    marker.setAttribute("aria-label", `Explain ${item.term}`);
+    marker.innerHTML = `<span></span>`;
+    
+    let dragged = false;
+    enableDrag(marker, layout, () => { dragged = true; });
+    marker.onclick = (event) => {
+      event.stopPropagation();
+      if (dragged) {
+        dragged = false;
+        return;
       }
-      occupied.push({ left, top });
-
-      const marker = document.createElement("button");
-      marker.className = "term-marker";
-      marker.type = "button";
-      marker.style.left = `${left}px`;
-      marker.style.top = `${top}px`;
-      marker.style.setProperty("--marker-delay", `${Math.min(index * 35, 350)}ms`);
-      marker.setAttribute("aria-label", `Explain ${item.term}`);
-      marker.innerHTML = `<span></span>`;
-      let dragged = false;
-      enableDrag(marker, layout, () => { dragged = true; });
-      marker.onclick = (event) => {
-        event.stopPropagation();
-        if (dragged) {
-          dragged = false;
-          return;
-        }
-        openPopover(item, marker, layout);
-      };
-      overlay.appendChild(marker);
-    });
+      openPopover(item, marker, layout);
+      if (sortedItems.length > 1) {
+        currentDotIndex = (currentDotIndex + 1) % sortedItems.length;
+        setTimeout(() => {
+          marker.remove();
+          renderSingleMarker(sortedItems, layout);
+        }, 150);
+      }
+    };
+    overlay.appendChild(marker);
   }
 
   function enableDrag(marker, layout, onDrag) {
@@ -172,7 +179,9 @@ window.FalconOverlay = (() => {
     popover.style.left = `${left}px`;
     popover.style.top = `${top}px`;
     popover.style.width = `${width}px`;
-    popover.innerHTML = `<div class="popover-heading"><span class="callout-dot"></span><span class="callout-line"></span><strong>${escapeHtml(item.term)}</strong><small>${Math.round(item.confidence * 100)}%</small></div><p>${escapeHtml(item.definition)}</p><button type="button">Open full meaning</button>`;
+    const confPercent = Math.round(item.confidence * 100);
+    const confClass = confPercent >= 90 ? 'conf-good' : confPercent >= 70 ? 'conf-neutral' : 'conf-bad';
+    popover.innerHTML = `<div class="popover-heading"><span class="callout-dot"></span><span class="callout-line"></span><strong>${escapeHtml(item.term)}</strong><small class="${confClass}">${confPercent}%</small></div><p>${escapeHtml(item.definition)}</p><button type="button">Open full meaning</button>`;
     popover.querySelector("button").onclick = (event) => {
       event.stopPropagation();
       window.FalconFeedback.open(item);
