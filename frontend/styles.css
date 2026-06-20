@@ -83,7 +83,7 @@ main { width: 100%; max-width: 1320px; margin: auto; padding: 30px 14px calc(64p
 
 /* Subtle title text gradient */
 .intro h1 {
-  max-width: 10ch; margin: 2px 0 12px;
+  max-width: none; margin: 2px 0 12px;
   font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", Inter, sans-serif;
   font-weight: 780; font-size: clamp(39px, 12vw, 64px); line-height: .98; letter-spacing: -.055em;
   background: linear-gradient(135deg, #ffffff 40%, var(--muted) 100%);
