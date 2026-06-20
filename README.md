@@ -3,6 +3,7 @@
 FalconScan is a bilingual, AI-assisted camera companion for customs documents. It lets a non-specialist point a phone or webcam at a manifest, bill of lading, airway bill, declaration, invoice, packing list, delivery order, or port-clearance form and tap contextual dots for plain-language definitions.
 
 The product is deliberately **glossary-first and CPU-first**. The browser provides continuous camera feedback and detects stable, sharp, well-lit frames. Only a stable frame—or an explicit “Scan now”—is sent to the backend. PaddleOCR handles English and Arabic text; local services then match customs terminology. A VLM is an optional, separately hosted enhancement, never a requirement for the core app.
+
 <img width="1348" height="1085" alt="image" src="https://github.com/user-attachments/assets/b9ce279e-0edf-4e1a-b0d7-5af7bdcc81ac" />
 
 
