@@ -294,6 +294,24 @@ main { width: 100%; max-width: 1320px; margin: auto; padding: 30px 14px calc(64p
 }
 .details-toggle i { font-style: normal; transition: transform .3s ease; }
 .details-open .details-toggle i { transform: rotate(180deg); }
+.toggle-cam-icon {
+  width: 16px; height: 16px; flex-shrink: 0;
+  color: var(--lime); transition: filter 0.2s;
+}
+.details-toggle:hover .toggle-cam-icon {
+  filter: drop-shadow(0 0 4px rgba(181, 242, 29, 0.55));
+}
+.toggle-label {
+  font-size: 11px; font-weight: 700; letter-spacing: .04em;
+  color: #fff;
+}
+.viewport.active .toggle-cam-icon {
+  animation: cam-pulse 2.2s infinite ease-in-out;
+}
+@keyframes cam-pulse {
+  0%, 100% { color: var(--lime); }
+  50% { color: #fff; filter: drop-shadow(0 0 5px rgba(181, 242, 29, 0.7)); }
+}
 
 .control-panel {
   position: relative; display: flex; flex-direction: column; max-height: 0; overflow: hidden;
