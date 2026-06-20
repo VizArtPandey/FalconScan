@@ -6,3 +6,4 @@ numpy==1.26.4
 PyMuPDF==1.25.5
 opencv-python==4.10.0.84
 rapidocr-onnxruntime==1.4.4
+pytesseract==0.3.13

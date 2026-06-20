@@ -134,6 +134,9 @@ Every item below must pass before FalconScan is marked ready for GitHub or Huggi
 - [x] Portable CPU OCR is warmed in the background to reduce first-scan latency.
 - [x] Uploaded images are preprocessed for contrast/sharpness at a bounded 1400px edge.
 - [x] The last four document analyses are cached in memory for immediate repeat uploads.
+- [x] Default CPU deployment uses prepackaged RapidOCR for English and system Tesseract for Arabic, avoiding first-scan Paddle model downloads.
+- [x] PaddleOCR remains available through `requirements-advanced.txt` and `FALCONSCAN_OCR_ENGINE=paddle` rather than slowing the default Space.
+- [x] OCR warm-up loads model sessions without running a competing inference during initial page load.
 
 ### Responsive UI and accessibility
 
@@ -148,6 +151,7 @@ Every item below must pass before FalconScan is marked ready for GitHub or Huggi
 - [x] Scan Status uses concise state-specific instructions rather than exposing raw stability, lighting, OCR, or zero-count diagnostics.
 - [x] Term-count badges are omitted from Scan Status; the result list itself communicates available concepts.
 - [x] Scan Details does not retain or display a history of selected terms.
+- [x] Header uses the merged FS monogram with accessible FalconScan home labeling.
 
 ### Governance and trust
 
@@ -160,13 +164,15 @@ Every item below must pass before FalconScan is marked ready for GitHub or Huggi
 
 ### Automated verification recorded
 
-- [x] Python/API suite: 15 tests passing.
+- [x] Python/API suite: 17 tests passing.
 - [x] JavaScript syntax checks: camera, overlay, feedback, and insights scripts passing.
 - [x] DOM integration: two terms produced two dots.
 - [x] DOM integration: dot click expanded the inline definition.
 - [x] DOM integration: full-meaning action opened the governed definition.
 - [x] DOM integration: text selection triggered the insight flow.
 - [x] Live API: selection returned recognized terms, summary, business meaning, source, and confidence.
+- [x] Live performance: home HTML TTFB 27ms and CSS TTFB 1.4ms in the local build.
+- [x] OCR performance: model-session warm-up 0.48s and representative English scan 0.36s locally.
 - [ ] Physical iPhone Safari camera and selection acceptance test.
 - [ ] Physical Android Chrome camera and selection acceptance test.
 - [ ] Deployed Hugging Face Space smoke test after remote synchronization.

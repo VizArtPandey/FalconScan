@@ -163,3 +163,19 @@ def test_confidence_calibration_does_not_multiply_down_verified_match():
     service = GlossaryService(ROOT / "data/glossary.json", ROOT / "data/user_corrections.json", ROOT / "data/sme_approved_definitions.json")
     terms = service.match_regions([{"text": "HS Code", "bbox": [0, 0, 100, 20], "confidence": .8, "language": "en"}])
     assert terms[0]["confidence"] > .8
+
+
+def test_fs_merged_logo_is_served_accessibly():
+    html = client.get("/").text
+    assert 'class="mark-f">F</span>' in html
+    assert 'class="mark-s">S</span>' in html
+    assert 'aria-label="FalconScan home"' in html
+
+
+def test_default_deployment_does_not_install_paddle_cold_start():
+    requirements = (ROOT / "requirements.txt").read_text()
+    advanced = (ROOT / "requirements-advanced.txt").read_text()
+    assert "paddlepaddle" not in requirements
+    assert "paddleocr" not in requirements
+    assert "paddlepaddle" in advanced
+    assert "paddleocr" in advanced

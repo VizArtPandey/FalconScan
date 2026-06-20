@@ -1,6 +1,7 @@
 import logging
 import os
 import re
+import shutil
 from typing import Any
 
 import numpy as np
@@ -14,6 +15,7 @@ class OCRService:
 
     def __init__(self):
         self.enabled = os.getenv("FALCONSCAN_OCR_ENABLED", "true").lower() == "true"
+        self.engine_mode = os.getenv("FALCONSCAN_OCR_ENGINE", "fast").lower()
         self._engines: dict[str, Any] = {}
         self._rapid = None
         self.warming = False
@@ -45,6 +47,10 @@ class OCRService:
     def extract(self, image: Image.Image, language_preference: str = "en") -> list[dict]:
         if not self.enabled:
             raise RuntimeError("OCR is disabled")
+        if self.engine_mode != "paddle":
+            if language_preference == "ar" and shutil.which("tesseract"):
+                return self._extract_tesseract(image)
+            return self._extract_rapid(image)
         try:
             import paddleocr  # noqa: F401
             paddle_available = True
@@ -79,6 +85,32 @@ class OCRService:
                         })
         return detections
 
+    def _extract_tesseract(self, image: Image.Image) -> list[dict]:
+        """Fast preinstalled bilingual OCR path for CPU Spaces."""
+        try:
+            import pytesseract
+            from pytesseract import Output
+        except ImportError as exc:
+            raise RuntimeError("Arabic OCR support is not installed") from exc
+        data = pytesseract.image_to_data(image, lang="ara+eng", output_type=Output.DICT,
+                                         config="--oem 1 --psm 6")
+        detections = []
+        for index, value in enumerate(data.get("text", [])):
+            text = str(value).strip()
+            confidence = float(data["conf"][index]) if str(data["conf"][index]) != "-1" else -1
+            if not text or confidence < 35:
+                continue
+            left, top = int(data["left"][index]), int(data["top"][index])
+            width, height = int(data["width"][index]), int(data["height"][index])
+            detections.append({
+                "text": text,
+                "bbox": [left, top, left + width, top + height],
+                "confidence": round(confidence / 100, 4),
+                "language": self._language(text),
+            })
+        self.ready = True
+        return detections
+
     def _extract_rapid(self, image: Image.Image) -> list[dict]:
         """Portable CPU fallback for environments where Paddle wheels are unavailable."""
         try:
@@ -107,13 +139,10 @@ class OCRService:
             return
         self.warming = True
         try:
-            try:
-                import paddleocr  # noqa: F401
-                # Paddle remains lazy because two multilingual models are substantially larger.
-                return
-            except ImportError:
-                pass
-            self._extract_rapid(Image.new("RGB", (320, 128), "white"))
+            from rapidocr_onnxruntime import RapidOCR
+            if self._rapid is None:
+                self._rapid = RapidOCR()
+            self.ready = True
         except Exception as exc:
             logger.warning("OCR warm-up failed: %s", exc)
         finally:
@@ -133,4 +162,6 @@ class OCRService:
         return {"enabled": self.enabled, "installed": installed,
                 "fallback_installed": fallback_installed,
                 "loaded_languages": list(self._engines),
-                "warming": self.warming, "ready": self.ready}
+                "warming": self.warming, "ready": self.ready,
+                "engine_mode": self.engine_mode,
+                "arabic_tesseract": bool(shutil.which("tesseract"))}

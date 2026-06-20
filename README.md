@@ -147,12 +147,14 @@ pip install -r requirements-lite.txt
 FALCONSCAN_OCR_ENABLED=false uvicorn app:app --reload
 ```
 
-Full local OCR:
+Fast local OCR (default English CPU path):
 
 ```bash
 pip install -r requirements.txt
 uvicorn app:app --host 0.0.0.0 --port 7860
 ```
+
+The Docker image also installs Arabic Tesseract data. For optional PaddleOCR research or custom multilingual models, install `requirements-advanced.txt` and set `FALCONSCAN_OCR_ENGINE=paddle`; this is intentionally excluded from the default free-Space path to avoid multi-minute model downloads.
 
 Open `http://localhost:7860`. Camera access requires localhost or HTTPS. The first English/Arabic scan downloads PaddleOCR models and therefore has a cold start.
 
