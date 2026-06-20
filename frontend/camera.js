@@ -218,7 +218,7 @@
     const objectUrl = URL.createObjectURL(file);
     try {
       const image = await loadImage(objectUrl);
-      const maxEdge = 1400;
+      const maxEdge = 1000;
       const scale = Math.min(1, maxEdge / Math.max(image.naturalWidth, image.naturalHeight));
       if (scale === 1 && file.size < 2 * 1024 * 1024) {
         return { base64: await readBase64(file), filename: file.name };

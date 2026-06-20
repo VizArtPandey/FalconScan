@@ -43,7 +43,7 @@ class DocumentService:
         else:
             raise ValueError("Supported formats are JPG, PNG, WebP, PDF, and DOCX")
         self._cache[cache_key] = result
-        while len(self._cache) > 4:
+        while len(self._cache) > 16:
             self._cache.popitem(last=False)
         return {**result, "cached": False}
 
@@ -53,7 +53,7 @@ class DocumentService:
             image.load()
         except Exception as exc:
             raise ValueError("The uploaded image could not be opened") from exc
-        image.thumbnail((1400, 1400), Image.Resampling.LANCZOS)
+        image.thumbnail((1000, 1000), Image.Resampling.BICUBIC)
         prepared = ImageOps.autocontrast(image.convert("L")).filter(ImageFilter.SHARPEN).convert("RGB")
         detections = self.ocr.extract(prepared, language)
         terms = self.glossary.match_regions(detections)
@@ -76,7 +76,7 @@ class DocumentService:
             canvas_width = 0
             for index in range(page_count):
                 page = document[index]
-                zoom = min(1.5, 1100 / max(1, page.rect.width))
+                zoom = min(1.2, 800 / max(1, page.rect.width))
                 pixmap = page.get_pixmap(matrix=fitz.Matrix(zoom, zoom), alpha=False)
                 page_image = Image.frombytes("RGB", [pixmap.width, pixmap.height], pixmap.samples)
                 rendered.append((page, page_image, zoom))
@@ -138,10 +138,10 @@ class DocumentService:
         return self._render_text(paragraphs)
 
     def _render_text(self, paragraphs: list[str]) -> dict:
-        width, margin, line_height = 1400, 100, 42
+        width, margin, line_height = 1000, 80, 36
         wrapped = []
         for paragraph in paragraphs:
-            wrapped.extend(textwrap.wrap(paragraph, width=85, break_long_words=False) or [""])
+            wrapped.extend(textwrap.wrap(paragraph, width=65, break_long_words=False) or [""])
             wrapped.append("")
         height = max(900, margin * 2 + len(wrapped) * line_height)
         image = Image.new("RGB", (width, height), "#ffffff")

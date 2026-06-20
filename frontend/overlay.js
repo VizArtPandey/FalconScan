@@ -124,10 +124,7 @@ window.FalconOverlay = (() => {
   function triggerDotAtText(event, region, layout) {
     const selection = window.getSelection();
     if (selection && !selection.isCollapsed && selection.toString().trim()) return;
-    const existingMarkers = [...overlay.querySelectorAll(".term-marker")];
-    if (existingMarkers.length >= 3) {
-      (overlay.querySelector(".term-marker.user-triggered") || existingMarkers[existingMarkers.length - 1]).remove();
-    }
+    overlay.querySelectorAll(".term-marker").forEach(m => m.remove());
     const match = terms.find((item) =>
       item.bbox?.every((value, index) => Math.abs(value - region.bbox[index]) < 2)
       || String(region.text).toLowerCase().includes(String(item.term).toLowerCase())

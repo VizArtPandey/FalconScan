@@ -1,1 +1,997 @@
-{}
+{
+  "0e95b3fc1895805205a0926d": {
+    "detected_terms": [],
+    "unknown_terms": [],
+    "ocr_items": [],
+    "cached": false,
+    "ocr_available": true,
+    "quality": {
+      "brightness": 138.98,
+      "contrast": 45.3,
+      "acceptable": true
+    },
+    "mean_ocr_confidence": 0.0,
+    "suggest_vlm": true,
+    "vlm_reasons": [
+      "low_ocr_confidence"
+    ]
+  },
+  "6da67123e8a333c7a9651cc6": {
+    "detected_terms": [
+      {
+        "term": "ameter",
+        "full_form": null,
+        "definition": "This document phrase is not yet in the verified customs glossary. Select or highlight it for a contextual summary and business meaning.",
+        "definition_ar": null,
+        "source": "ai_generated_unverified",
+        "source_label": "Contextual marker · needs verification",
+        "confidence": 0.586,
+        "category": "Document Context",
+        "related_terms": [],
+        "document_types": [],
+        "match_type": "contextual_fallback",
+        "bbox": [
+          337,
+          680,
+          393,
+          709
+        ],
+        "ocr_text": "ameter",
+        "ocr_confidence": 0.945,
+        "language": "en"
+      },
+      {
+        "term": "adingrenderngandcesingoped",
+        "full_form": null,
+        "definition": "This document phrase is not yet in the verified customs glossary. Select or highlight it for a contextual summary and business meaning.",
+        "definition_ar": null,
+        "source": "ai_generated_unverified",
+        "source_label": "Contextual marker · needs verification",
+        "confidence": 0.471,
+        "category": "Document Context",
+        "related_terms": [],
+        "document_types": [],
+        "match_type": "contextual_fallback",
+        "bbox": [
+          332,
+          516,
+          722,
+          588
+        ],
+        "ocr_text": "adingrenderngandcesingoped",
+        "ocr_confidence": 0.7595,
+        "language": "en"
+      },
+      {
+        "term": "ts.",
+        "full_form": null,
+        "definition": "This document phrase is not yet in the verified customs glossary. Select or highlight it for a contextual summary and business meaning.",
+        "definition_ar": null,
+        "source": "ai_generated_unverified",
+        "source_label": "Contextual marker · needs verification",
+        "confidence": 0.465,
+        "category": "Document Context",
+        "related_terms": [],
+        "document_types": [],
+        "match_type": "contextual_fallback",
+        "bbox": [
+          333,
+          364,
+          358,
+          379
+        ],
+        "ocr_text": "ts.",
+        "ocr_confidence": 0.75,
+        "language": "en"
+      }
+    ],
+    "unknown_terms": [
+      {
+        "text": "ts.",
+        "bbox": [
+          333,
+          364,
+          358,
+          379
+        ],
+        "confidence": 0.75,
+        "language": "en"
+      },
+      {
+        "text": "adingrenderngandcesingoped",
+        "bbox": [
+          332,
+          516,
+          722,
+          588
+        ],
+        "confidence": 0.7595,
+        "language": "en"
+      },
+      {
+        "text": "ameter",
+        "bbox": [
+          337,
+          680,
+          393,
+          709
+        ],
+        "confidence": 0.945,
+        "language": "en"
+      }
+    ],
+    "ocr_items": [
+      {
+        "text": "ts.",
+        "bbox": [
+          333,
+          364,
+          358,
+          379
+        ],
+        "confidence": 0.75,
+        "language": "en"
+      },
+      {
+        "text": "adingrenderngandcesingoped",
+        "bbox": [
+          332,
+          516,
+          722,
+          588
+        ],
+        "confidence": 0.7595,
+        "language": "en"
+      },
+      {
+        "text": "ameter",
+        "bbox": [
+          337,
+          680,
+          393,
+          709
+        ],
+        "confidence": 0.945,
+        "language": "en"
+      }
+    ],
+    "cached": false,
+    "ocr_available": true,
+    "quality": {
+      "brightness": 151.18,
+      "contrast": 64.77,
+      "acceptable": true
+    },
+    "mean_ocr_confidence": 0.818,
+    "suggest_vlm": true,
+    "vlm_reasons": [
+      "unknown_terms"
+    ]
+  },
+  "e042c809964abcf690daf8af": {
+    "detected_terms": [],
+    "unknown_terms": [],
+    "ocr_items": [],
+    "cached": false,
+    "ocr_available": true,
+    "quality": {
+      "brightness": 133.9,
+      "contrast": 42.13,
+      "acceptable": true
+    },
+    "mean_ocr_confidence": 0.0,
+    "suggest_vlm": true,
+    "vlm_reasons": [
+      "low_ocr_confidence"
+    ]
+  },
+  "15f7a6e038b50173e2c6a697": {
+    "detected_terms": [],
+    "unknown_terms": [],
+    "ocr_items": [],
+    "cached": false,
+    "ocr_available": true,
+    "quality": {
+      "brightness": 132.16,
+      "contrast": 44.73,
+      "acceptable": true
+    },
+    "mean_ocr_confidence": 0.0,
+    "suggest_vlm": true,
+    "vlm_reasons": [
+      "low_ocr_confidence"
+    ]
+  },
+  "8283cb9892b926731b625631": {
+    "detected_terms": [
+      {
+        "term": "111",
+        "full_form": null,
+        "definition": "This document phrase is not yet in the verified customs glossary. Select or highlight it for a contextual summary and business meaning.",
+        "definition_ar": null,
+        "source": "ai_generated_unverified",
+        "source_label": "Contextual marker · needs verification",
+        "confidence": 0.366,
+        "category": "Document Context",
+        "related_terms": [],
+        "document_types": [],
+        "match_type": "contextual_fallback",
+        "bbox": [
+          891,
+          297,
+          1045,
+          516
+        ],
+        "ocr_text": "111",
+        "ocr_confidence": 0.5911,
+        "language": "en"
+      }
+    ],
+    "unknown_terms": [
+      {
+        "text": "111",
+        "bbox": [
+          891,
+          297,
+          1045,
+          516
+        ],
+        "confidence": 0.5911,
+        "language": "en"
+      }
+    ],
+    "ocr_items": [
+      {
+        "text": "111",
+        "bbox": [
+          891,
+          297,
+          1045,
+          516
+        ],
+        "confidence": 0.5911,
+        "language": "en"
+      }
+    ],
+    "cached": false,
+    "ocr_available": true,
+    "quality": {
+      "brightness": 138.59,
+      "contrast": 43.97,
+      "acceptable": true
+    },
+    "mean_ocr_confidence": 0.591,
+    "suggest_vlm": true,
+    "vlm_reasons": [
+      "low_ocr_confidence",
+      "unknown_terms"
+    ]
+  },
+  "853cd90c283c3e3226b26753": {
+    "detected_terms": [],
+    "unknown_terms": [
+      {
+        "text": "111",
+        "bbox": [
+          902,
+          304,
+          1034,
+          507
+        ],
+        "confidence": 0.5188,
+        "language": "en"
+      }
+    ],
+    "ocr_items": [
+      {
+        "text": "111",
+        "bbox": [
+          902,
+          304,
+          1034,
+          507
+        ],
+        "confidence": 0.5188,
+        "language": "en"
+      }
+    ],
+    "cached": false,
+    "ocr_available": true,
+    "quality": {
+      "brightness": 138.3,
+      "contrast": 43.64,
+      "acceptable": true
+    },
+    "mean_ocr_confidence": 0.519,
+    "suggest_vlm": true,
+    "vlm_reasons": [
+      "low_ocr_confidence",
+      "unknown_terms"
+    ]
+  },
+  "d2150ffb3575b91e32987c17": {
+    "detected_terms": [
+      {
+        "term": "1三1",
+        "full_form": null,
+        "definition": "This document phrase is not yet in the verified customs glossary. Select or highlight it for a contextual summary and business meaning.",
+        "definition_ar": null,
+        "source": "ai_generated_unverified",
+        "source_label": "Contextual marker · needs verification",
+        "confidence": 0.38,
+        "category": "Document Context",
+        "related_terms": [],
+        "document_types": [],
+        "match_type": "contextual_fallback",
+        "bbox": [
+          881,
+          293,
+          1048,
+          522
+        ],
+        "ocr_text": "1三1",
+        "ocr_confidence": 0.6129,
+        "language": "en"
+      }
+    ],
+    "unknown_terms": [
+      {
+        "text": "1三1",
+        "bbox": [
+          881,
+          293,
+          1048,
+          522
+        ],
+        "confidence": 0.6129,
+        "language": "en"
+      }
+    ],
+    "ocr_items": [
+      {
+        "text": "1三1",
+        "bbox": [
+          881,
+          293,
+          1048,
+          522
+        ],
+        "confidence": 0.6129,
+        "language": "en"
+      }
+    ],
+    "cached": false,
+    "ocr_available": true,
+    "quality": {
+      "brightness": 138.89,
+      "contrast": 44.23,
+      "acceptable": true
+    },
+    "mean_ocr_confidence": 0.613,
+    "suggest_vlm": true,
+    "vlm_reasons": [
+      "low_ocr_confidence",
+      "unknown_terms"
+    ]
+  },
+  "e513088e891adc71dbc94d45": {
+    "detected_terms": [],
+    "unknown_terms": [],
+    "ocr_items": [],
+    "cached": false,
+    "ocr_available": true,
+    "quality": {
+      "brightness": 133.1,
+      "contrast": 43.21,
+      "acceptable": true
+    },
+    "mean_ocr_confidence": 0.0,
+    "suggest_vlm": true,
+    "vlm_reasons": [
+      "low_ocr_confidence"
+    ]
+  },
+  "3dd120d6c5f618fd90579428": {
+    "detected_terms": [
+      {
+        "term": "1三",
+        "full_form": null,
+        "definition": "This document phrase is not yet in the verified customs glossary. Select or highlight it for a contextual summary and business meaning.",
+        "definition_ar": null,
+        "source": "ai_generated_unverified",
+        "source_label": "Contextual marker · needs verification",
+        "confidence": 0.362,
+        "category": "Document Context",
+        "related_terms": [],
+        "document_types": [],
+        "match_type": "contextual_fallback",
+        "bbox": [
+          897,
+          301,
+          1040,
+          510
+        ],
+        "ocr_text": "1三",
+        "ocr_confidence": 0.584,
+        "language": "en"
+      }
+    ],
+    "unknown_terms": [],
+    "ocr_items": [
+      {
+        "text": "1三",
+        "bbox": [
+          897,
+          301,
+          1040,
+          510
+        ],
+        "confidence": 0.584,
+        "language": "en"
+      }
+    ],
+    "cached": false,
+    "ocr_available": true,
+    "quality": {
+      "brightness": 138.5,
+      "contrast": 44.11,
+      "acceptable": true
+    },
+    "mean_ocr_confidence": 0.584,
+    "suggest_vlm": true,
+    "vlm_reasons": [
+      "low_ocr_confidence"
+    ]
+  },
+  "0141543747f818612aeb7df8": {
+    "detected_terms": [
+      {
+        "term": "1三1",
+        "full_form": null,
+        "definition": "This document phrase is not yet in the verified customs glossary. Select or highlight it for a contextual summary and business meaning.",
+        "definition_ar": null,
+        "source": "ai_generated_unverified",
+        "source_label": "Contextual marker · needs verification",
+        "confidence": 0.351,
+        "category": "Document Context",
+        "related_terms": [],
+        "document_types": [],
+        "match_type": "contextual_fallback",
+        "bbox": [
+          891,
+          296,
+          1047,
+          517
+        ],
+        "ocr_text": "1三1",
+        "ocr_confidence": 0.5656,
+        "language": "en"
+      }
+    ],
+    "unknown_terms": [
+      {
+        "text": "1三1",
+        "bbox": [
+          891,
+          296,
+          1047,
+          517
+        ],
+        "confidence": 0.5656,
+        "language": "en"
+      }
+    ],
+    "ocr_items": [
+      {
+        "text": "1三1",
+        "bbox": [
+          891,
+          296,
+          1047,
+          517
+        ],
+        "confidence": 0.5656,
+        "language": "en"
+      }
+    ],
+    "cached": false,
+    "ocr_available": true,
+    "quality": {
+      "brightness": 139.05,
+      "contrast": 44.47,
+      "acceptable": true
+    },
+    "mean_ocr_confidence": 0.566,
+    "suggest_vlm": true,
+    "vlm_reasons": [
+      "low_ocr_confidence",
+      "unknown_terms"
+    ]
+  },
+  "ff1f2f282cc195ac99df68f5": {
+    "detected_terms": [],
+    "unknown_terms": [],
+    "ocr_items": [],
+    "cached": false,
+    "ocr_available": true,
+    "quality": {
+      "brightness": 138.57,
+      "contrast": 44.32,
+      "acceptable": true
+    },
+    "mean_ocr_confidence": 0.0,
+    "suggest_vlm": true,
+    "vlm_reasons": [
+      "low_ocr_confidence"
+    ]
+  },
+  "f0f39e6f92aefee8e0fbb041": {
+    "detected_terms": [],
+    "unknown_terms": [],
+    "ocr_items": [],
+    "cached": false,
+    "ocr_available": true,
+    "quality": {
+      "brightness": 139.12,
+      "contrast": 44.26,
+      "acceptable": true
+    },
+    "mean_ocr_confidence": 0.0,
+    "suggest_vlm": true,
+    "vlm_reasons": [
+      "low_ocr_confidence"
+    ]
+  },
+  "96cceefa6e6e2e37cfdfd309": {
+    "detected_terms": [
+      {
+        "term": "1三",
+        "full_form": null,
+        "definition": "This document phrase is not yet in the verified customs glossary. Select or highlight it for a contextual summary and business meaning.",
+        "definition_ar": null,
+        "source": "ai_generated_unverified",
+        "source_label": "Contextual marker · needs verification",
+        "confidence": 0.373,
+        "category": "Document Context",
+        "related_terms": [],
+        "document_types": [],
+        "match_type": "contextual_fallback",
+        "bbox": [
+          887,
+          295,
+          1046,
+          519
+        ],
+        "ocr_text": "1三",
+        "ocr_confidence": 0.6024,
+        "language": "en"
+      }
+    ],
+    "unknown_terms": [],
+    "ocr_items": [
+      {
+        "text": "1三",
+        "bbox": [
+          887,
+          295,
+          1046,
+          519
+        ],
+        "confidence": 0.6024,
+        "language": "en"
+      }
+    ],
+    "cached": false,
+    "ocr_available": true,
+    "quality": {
+      "brightness": 139.1,
+      "contrast": 44.15,
+      "acceptable": true
+    },
+    "mean_ocr_confidence": 0.602,
+    "suggest_vlm": true,
+    "vlm_reasons": [
+      "low_ocr_confidence"
+    ]
+  },
+  "defda18eaae337eddf9822a9": {
+    "detected_terms": [
+      {
+        "term": "1三1",
+        "full_form": null,
+        "definition": "This document phrase is not yet in the verified customs glossary. Select or highlight it for a contextual summary and business meaning.",
+        "definition_ar": null,
+        "source": "ai_generated_unverified",
+        "source_label": "Contextual marker · needs verification",
+        "confidence": 0.357,
+        "category": "Document Context",
+        "related_terms": [],
+        "document_types": [],
+        "match_type": "contextual_fallback",
+        "bbox": [
+          881,
+          292,
+          1051,
+          521
+        ],
+        "ocr_text": "1三1",
+        "ocr_confidence": 0.5759,
+        "language": "en"
+      }
+    ],
+    "unknown_terms": [
+      {
+        "text": "1三1",
+        "bbox": [
+          881,
+          292,
+          1051,
+          521
+        ],
+        "confidence": 0.5759,
+        "language": "en"
+      }
+    ],
+    "ocr_items": [
+      {
+        "text": "1三1",
+        "bbox": [
+          881,
+          292,
+          1051,
+          521
+        ],
+        "confidence": 0.5759,
+        "language": "en"
+      }
+    ],
+    "cached": false,
+    "ocr_available": true,
+    "quality": {
+      "brightness": 139.07,
+      "contrast": 44.05,
+      "acceptable": true
+    },
+    "mean_ocr_confidence": 0.576,
+    "suggest_vlm": true,
+    "vlm_reasons": [
+      "low_ocr_confidence",
+      "unknown_terms"
+    ]
+  },
+  "300e046d915802ef6f512f94": {
+    "detected_terms": [],
+    "unknown_terms": [],
+    "ocr_items": [],
+    "cached": false,
+    "ocr_available": true,
+    "quality": {
+      "brightness": 139.1,
+      "contrast": 43.74,
+      "acceptable": true
+    },
+    "mean_ocr_confidence": 0.0,
+    "suggest_vlm": true,
+    "vlm_reasons": [
+      "low_ocr_confidence"
+    ]
+  },
+  "95a633507d3b8a3964209f26": {
+    "detected_terms": [
+      {
+        "term": "1三1",
+        "full_form": null,
+        "definition": "This document phrase is not yet in the verified customs glossary. Select or highlight it for a contextual summary and business meaning.",
+        "definition_ar": null,
+        "source": "ai_generated_unverified",
+        "source_label": "Contextual marker · needs verification",
+        "confidence": 0.356,
+        "category": "Document Context",
+        "related_terms": [],
+        "document_types": [],
+        "match_type": "contextual_fallback",
+        "bbox": [
+          887,
+          295,
+          1047,
+          519
+        ],
+        "ocr_text": "1三1",
+        "ocr_confidence": 0.5744,
+        "language": "en"
+      }
+    ],
+    "unknown_terms": [
+      {
+        "text": "1三1",
+        "bbox": [
+          887,
+          295,
+          1047,
+          519
+        ],
+        "confidence": 0.5744,
+        "language": "en"
+      }
+    ],
+    "ocr_items": [
+      {
+        "text": "1三1",
+        "bbox": [
+          887,
+          295,
+          1047,
+          519
+        ],
+        "confidence": 0.5744,
+        "language": "en"
+      }
+    ],
+    "cached": false,
+    "ocr_available": true,
+    "quality": {
+      "brightness": 139.01,
+      "contrast": 44.06,
+      "acceptable": true
+    },
+    "mean_ocr_confidence": 0.574,
+    "suggest_vlm": true,
+    "vlm_reasons": [
+      "low_ocr_confidence",
+      "unknown_terms"
+    ]
+  },
+  "1ddcb807d91281649cd6da3b": {
+    "detected_terms": [],
+    "unknown_terms": [],
+    "ocr_items": [],
+    "cached": false,
+    "ocr_available": true,
+    "quality": {
+      "brightness": 136.82,
+      "contrast": 44.26,
+      "acceptable": true
+    },
+    "mean_ocr_confidence": 0.0,
+    "suggest_vlm": true,
+    "vlm_reasons": [
+      "low_ocr_confidence"
+    ]
+  },
+  "f33009b49867b3f1798582c2": {
+    "detected_terms": [
+      {
+        "term": "1三1",
+        "full_form": null,
+        "definition": "This document phrase is not yet in the verified customs glossary. Select or highlight it for a contextual summary and business meaning.",
+        "definition_ar": null,
+        "source": "ai_generated_unverified",
+        "source_label": "Contextual marker · needs verification",
+        "confidence": 0.345,
+        "category": "Document Context",
+        "related_terms": [],
+        "document_types": [],
+        "match_type": "contextual_fallback",
+        "bbox": [
+          888,
+          295,
+          1047,
+          517
+        ],
+        "ocr_text": "1三1",
+        "ocr_confidence": 0.5568,
+        "language": "en"
+      }
+    ],
+    "unknown_terms": [
+      {
+        "text": "1三1",
+        "bbox": [
+          888,
+          295,
+          1047,
+          517
+        ],
+        "confidence": 0.5568,
+        "language": "en"
+      }
+    ],
+    "ocr_items": [
+      {
+        "text": "1三1",
+        "bbox": [
+          888,
+          295,
+          1047,
+          517
+        ],
+        "confidence": 0.5568,
+        "language": "en"
+      }
+    ],
+    "cached": false,
+    "ocr_available": true,
+    "quality": {
+      "brightness": 136.17,
+      "contrast": 44.99,
+      "acceptable": true
+    },
+    "mean_ocr_confidence": 0.557,
+    "suggest_vlm": true,
+    "vlm_reasons": [
+      "low_ocr_confidence",
+      "unknown_terms"
+    ]
+  },
+  "1de62820e32b893526936624": {
+    "detected_terms": [],
+    "unknown_terms": [],
+    "ocr_items": [],
+    "cached": false,
+    "ocr_available": true,
+    "quality": {
+      "brightness": 143.55,
+      "contrast": 49.45,
+      "acceptable": true
+    },
+    "mean_ocr_confidence": 0.0,
+    "suggest_vlm": true,
+    "vlm_reasons": [
+      "low_ocr_confidence"
+    ]
+  },
+  "3d4ec0f248af18826864842f": {
+    "detected_terms": [
+      {
+        "term": "1三",
+        "full_form": null,
+        "definition": "This document phrase is not yet in the verified customs glossary. Select or highlight it for a contextual summary and business meaning.",
+        "definition_ar": null,
+        "source": "ai_generated_unverified",
+        "source_label": "Contextual marker · needs verification",
+        "confidence": 0.429,
+        "category": "Document Context",
+        "related_terms": [],
+        "document_types": [],
+        "match_type": "contextual_fallback",
+        "bbox": [
+          875,
+          291,
+          1050,
+          526
+        ],
+        "ocr_text": "1三",
+        "ocr_confidence": 0.6914,
+        "language": "en"
+      }
+    ],
+    "unknown_terms": [],
+    "ocr_items": [
+      {
+        "text": "1三",
+        "bbox": [
+          875,
+          291,
+          1050,
+          526
+        ],
+        "confidence": 0.6914,
+        "language": "en"
+      }
+    ],
+    "cached": false,
+    "ocr_available": true,
+    "quality": {
+      "brightness": 145.56,
+      "contrast": 49.52,
+      "acceptable": true
+    },
+    "mean_ocr_confidence": 0.691,
+    "suggest_vlm": true,
+    "vlm_reasons": [
+      "low_ocr_confidence"
+    ]
+  },
+  "cd6f9bef655c7a890b9b0d1b": {
+    "detected_terms": [],
+    "unknown_terms": [],
+    "ocr_items": [],
+    "cached": false,
+    "ocr_available": true,
+    "quality": {
+      "brightness": 146.3,
+      "contrast": 49.78,
+      "acceptable": true
+    },
+    "mean_ocr_confidence": 0.0,
+    "suggest_vlm": true,
+    "vlm_reasons": [
+      "low_ocr_confidence"
+    ]
+  },
+  "c9c9b2a7ce7ae6d3cf5c1505": {
+    "detected_terms": [],
+    "unknown_terms": [],
+    "ocr_items": [],
+    "cached": false,
+    "ocr_available": true,
+    "quality": {
+      "brightness": 141.7,
+      "contrast": 51.65,
+      "acceptable": true
+    },
+    "mean_ocr_confidence": 0.0,
+    "suggest_vlm": true,
+    "vlm_reasons": [
+      "low_ocr_confidence"
+    ]
+  },
+  "ef0e1fc649d5ec778700abbe": {
+    "detected_terms": [],
+    "unknown_terms": [],
+    "ocr_items": [],
+    "cached": false,
+    "ocr_available": true,
+    "quality": {
+      "brightness": 148.26,
+      "contrast": 44.34,
+      "acceptable": true
+    },
+    "mean_ocr_confidence": 0.0,
+    "suggest_vlm": true,
+    "vlm_reasons": [
+      "low_ocr_confidence"
+    ]
+  },
+  "8194dc3e783babc297c2c131": {
+    "detected_terms": [],
+    "unknown_terms": [],
+    "ocr_items": [],
+    "cached": false,
+    "ocr_available": true,
+    "quality": {
+      "brightness": 144.38,
+      "contrast": 46.51,
+      "acceptable": true
+    },
+    "mean_ocr_confidence": 0.0,
+    "suggest_vlm": true,
+    "vlm_reasons": [
+      "low_ocr_confidence"
+    ]
+  },
+  "68beff108bd3ff6547814e36": {
+    "detected_terms": [],
+    "unknown_terms": [],
+    "ocr_items": [],
+    "cached": false,
+    "ocr_available": true,
+    "quality": {
+      "brightness": 148.65,
+      "contrast": 44.4,
+      "acceptable": true
+    },
+    "mean_ocr_confidence": 0.0,
+    "suggest_vlm": true,
+    "vlm_reasons": [
+      "low_ocr_confidence"
+    ]
+  },
+  "77cc8f05db422267852bb514": {
+    "detected_terms": [],
+    "unknown_terms": [],
+    "ocr_items": [],
+    "cached": false,
+    "ocr_available": true,
+    "quality": {
+      "brightness": 149.55,
+      "contrast": 43.41,
+      "acceptable": true
+    },
+    "mean_ocr_confidence": 0.0,
+    "suggest_vlm": true,
+    "vlm_reasons": [
+      "low_ocr_confidence"
+    ]
+  }
+}
