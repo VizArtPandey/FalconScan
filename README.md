@@ -1,13 +1,3 @@
----
-title: FalconScan
-emoji: 🦅
-colorFrom: green
-colorTo: green
-sdk: docker
-app_port: 7860
-pinned: false
----
-
 # FalconScan
 
 FalconScan is a bilingual, AI-assisted camera companion for customs documents. It lets a non-specialist point a phone or webcam at a manifest, bill of lading, airway bill, declaration, invoice, packing list, delivery order, or port-clearance form and tap contextual dots for plain-language definitions.
