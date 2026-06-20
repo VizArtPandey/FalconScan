@@ -93,6 +93,7 @@ Every item below must pass before FalconScan is marked ready for GitHub or Huggi
 - [x] No more than three highest-confidence dots are shown on the page at once.
 - [x] Dots use the reduced 18px control size and can be dragged to uncover document text.
 - [x] A readable single-word OCR region can receive a contextual dot when it is not already represented by a verified term.
+- [x] Clicking selectable document text creates a dot at the clicked location without exceeding the three-dot limit.
 
 ### Selection, highlight, and business insight
 
@@ -118,6 +119,8 @@ Every item below must pass before FalconScan is marked ready for GitHub or Huggi
 - [x] Files over 15 MB are rejected before analysis.
 - [x] Uploaded document images and files are not persisted by default.
 - [x] Uploaded document previews use a dedicated scroll container with visible native scrollbars.
+- [x] Multi-page PDFs render into one continuous scroll surface with positioned text and dots across pages.
+- [x] DOCX rendering grows with document content rather than stopping at the earlier fixed preview height.
 
 ### Camera and performance
 
@@ -129,6 +132,8 @@ Every item below must pass before FalconScan is marked ready for GitHub or Huggi
 - [x] Large uploaded images are resized to a maximum 1600px edge in the browser before transfer.
 - [x] Small images avoid unnecessary recompression.
 - [x] Portable CPU OCR is warmed in the background to reduce first-scan latency.
+- [x] Uploaded images are preprocessed for contrast/sharpness at a bounded 1400px edge.
+- [x] The last four document analyses are cached in memory for immediate repeat uploads.
 
 ### Responsive UI and accessibility
 
@@ -151,10 +156,11 @@ Every item below must pass before FalconScan is marked ready for GitHub or Huggi
 - [x] SME-approved definitions override pending user corrections.
 - [x] Feedback and review actions preserve an audit history.
 - [x] AI-generated or unmatched explanations are marked unverified.
+- [x] Confidence combines recognition and knowledge signals using calibrated weighting rather than artificially multiplying scores downward.
 
 ### Automated verification recorded
 
-- [x] Python/API suite: 12 tests passing.
+- [x] Python/API suite: 15 tests passing.
 - [x] JavaScript syntax checks: camera, overlay, feedback, and insights scripts passing.
 - [x] DOM integration: two terms produced two dots.
 - [x] DOM integration: dot click expanded the inline definition.

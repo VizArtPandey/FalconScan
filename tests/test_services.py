@@ -125,3 +125,41 @@ def test_scanner_serves_scroll_info_and_clean_status_controls():
     assert 'id="stabilityMetric"' not in html
     assert 'id="lightMetric"' not in html
     assert 'id="ocrMetric"' not in html
+
+
+def test_multipage_pdf_is_rendered_as_one_scroll_surface():
+    import fitz
+    document = fitz.open()
+    first = document.new_page()
+    first.insert_text((72, 100), "Commercial Invoice and HS Code", fontsize=16)
+    second = document.new_page()
+    second.insert_text((72, 100), "Packing List and Customs Duty", fontsize=16)
+    response = client.post("/analyze-document", json={
+        "file_base64": base64.b64encode(document.tobytes()).decode(),
+        "filename": "two-pages.pdf",
+        "language_preference": "en",
+    })
+    assert response.status_code == 200
+    data = response.json()
+    assert data["page_count"] == 2
+    assert data["pages_analyzed"] == 2
+    assert data["frame_height"] > data["frame_width"] * 2
+    assert {item["term"] for item in data["detected_terms"]} >= {"HS Code", "Commercial Invoice"}
+
+
+def test_document_cache_makes_repeat_upload_fast_path():
+    xml = '''<?xml version="1.0"?><w:document xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main"><w:body><w:p><w:r><w:t>Delivery Order</w:t></w:r></w:p></w:body></w:document>'''
+    buffer = io.BytesIO()
+    with zipfile.ZipFile(buffer, "w") as archive:
+        archive.writestr("word/document.xml", xml)
+    payload = {"file_base64": base64.b64encode(buffer.getvalue()).decode(), "filename": "repeat.docx", "language_preference": "en"}
+    assert client.post("/analyze-document", json=payload).status_code == 200
+    second = client.post("/analyze-document", json=payload)
+    assert second.status_code == 200
+    assert second.json()["cached"] is True
+
+
+def test_confidence_calibration_does_not_multiply_down_verified_match():
+    service = GlossaryService(ROOT / "data/glossary.json", ROOT / "data/user_corrections.json", ROOT / "data/sme_approved_definitions.json")
+    terms = service.match_regions([{"text": "HS Code", "bbox": [0, 0, 100, 20], "confidence": .8, "language": "en"}])
+    assert terms[0]["confidence"] > .8

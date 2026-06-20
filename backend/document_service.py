@@ -1,11 +1,13 @@
 import base64
+import hashlib
 import io
 import textwrap
 import zipfile
+from collections import OrderedDict
 from pathlib import Path
 from xml.etree import ElementTree
 
-from PIL import Image, ImageDraw, ImageFont
+from PIL import Image, ImageDraw, ImageFilter, ImageFont, ImageOps
 
 from backend.glossary_service import GlossaryService
 from backend.ocr_service import OCRService
@@ -13,10 +15,12 @@ from backend.ocr_service import OCRService
 
 class DocumentService:
     MAX_BYTES = 15 * 1024 * 1024
+    MAX_PDF_PAGES = 12
 
     def __init__(self, ocr: OCRService, glossary: GlossaryService):
         self.ocr = ocr
         self.glossary = glossary
+        self._cache: OrderedDict[str, dict] = OrderedDict()
 
     def analyze(self, encoded: str, filename: str, language: str) -> dict:
         try:
@@ -25,14 +29,23 @@ class DocumentService:
             raise ValueError("Invalid uploaded document") from exc
         if not raw or len(raw) > self.MAX_BYTES:
             raise ValueError("Document must be between 1 byte and 15 MB")
+        cache_key = hashlib.sha256(raw + filename.lower().encode() + language.encode()).hexdigest()
+        if cache_key in self._cache:
+            self._cache.move_to_end(cache_key)
+            return {**self._cache[cache_key], "cached": True}
         extension = Path(filename).suffix.lower()
         if extension in {".jpg", ".jpeg", ".png", ".webp"}:
-            return self._image(raw, language)
-        if extension == ".pdf":
-            return self._pdf(raw)
-        if extension == ".docx":
-            return self._docx(raw)
-        raise ValueError("Supported formats are JPG, PNG, WebP, PDF, and DOCX")
+            result = self._image(raw, language)
+        elif extension == ".pdf":
+            result = self._pdf(raw)
+        elif extension == ".docx":
+            result = self._docx(raw)
+        else:
+            raise ValueError("Supported formats are JPG, PNG, WebP, PDF, and DOCX")
+        self._cache[cache_key] = result
+        while len(self._cache) > 4:
+            self._cache.popitem(last=False)
+        return {**result, "cached": False}
 
     def _image(self, raw: bytes, language: str) -> dict:
         try:
@@ -40,7 +53,9 @@ class DocumentService:
             image.load()
         except Exception as exc:
             raise ValueError("The uploaded image could not be opened") from exc
-        detections = self.ocr.extract(image, language)
+        image.thumbnail((1400, 1400), Image.Resampling.LANCZOS)
+        prepared = ImageOps.autocontrast(image.convert("L")).filter(ImageFilter.SHARPEN).convert("RGB")
+        detections = self.ocr.extract(prepared, language)
         terms = self.glossary.match_regions(detections)
         if len(terms) < 3:
             terms.extend(self.glossary.contextual_fallbacks(detections, 3 - len(terms), terms))
@@ -56,28 +71,51 @@ class DocumentService:
             document = fitz.open(stream=raw, filetype="pdf")
             if document.page_count < 1:
                 raise ValueError("The PDF has no pages")
-            page = document[0]
-            zoom = min(2.0, 1800 / max(page.rect.width, page.rect.height))
-            matrix = fitz.Matrix(zoom, zoom)
-            pixmap = page.get_pixmap(matrix=matrix, alpha=False)
-            image = Image.frombytes("RGB", [pixmap.width, pixmap.height], pixmap.samples)
+            page_count = min(document.page_count, self.MAX_PDF_PAGES)
+            rendered = []
+            canvas_width = 0
+            for index in range(page_count):
+                page = document[index]
+                zoom = min(1.5, 1100 / max(1, page.rect.width))
+                pixmap = page.get_pixmap(matrix=fitz.Matrix(zoom, zoom), alpha=False)
+                page_image = Image.frombytes("RGB", [pixmap.width, pixmap.height], pixmap.samples)
+                rendered.append((page, page_image, zoom))
+                canvas_width = max(canvas_width, page_image.width)
+            gap = 18
+            total_height = sum(item[1].height for item in rendered) + gap * max(0, page_count - 1)
+            image = Image.new("RGB", (canvas_width, total_height), "#dfe3df")
             regions = []
-            for block in page.get_text("blocks"):
-                x1, y1, x2, y2, text = block[:5]
-                if text.strip():
-                    regions.append({"text": text, "bbox": [x1 * zoom, y1 * zoom, x2 * zoom, y2 * zoom],
-                                    "confidence": 1.0, "language": self._language(text)})
+            y_offset = 0
+            for page, page_image, zoom in rendered:
+                x_offset = (canvas_width - page_image.width) // 2
+                image.paste(page_image, (x_offset, y_offset))
+                page_regions = []
+                for block in page.get_text("blocks"):
+                    x1, y1, x2, y2, text = block[:5]
+                    if text.strip():
+                        page_regions.append({
+                            "text": text,
+                            "bbox": [x_offset + x1 * zoom, y_offset + y1 * zoom,
+                                     x_offset + x2 * zoom, y_offset + y2 * zoom],
+                            "confidence": 1.0,
+                            "language": self._language(text),
+                        })
+                if page_regions:
+                    regions.extend(page_regions)
+                else:
+                    page_detections = self.ocr.extract(page_image, "en")
+                    for item in page_detections:
+                        item["bbox"] = [item["bbox"][0] + x_offset, item["bbox"][1] + y_offset,
+                                        item["bbox"][2] + x_offset, item["bbox"][3] + y_offset]
+                    regions.extend(page_detections)
+                y_offset += page_image.height + gap
             terms = self.glossary.match_regions(regions)
             if len(terms) < 3:
                 terms.extend(self.glossary.contextual_fallbacks(regions, 3 - len(terms), terms))
-            if not regions:
-                detections = self.ocr.extract(image, "en")
-                terms = self.glossary.match_regions(detections)
-                if len(terms) < 3:
-                    terms.extend(self.glossary.contextual_fallbacks(detections, 3 - len(terms), terms))
-                _, unknown = self.glossary.match_ocr(detections)
-                return self._result(image, terms, detections, unknown, "scanned_pdf_ocr")
-            return self._result(image, terms, regions, [], "pdf_text")
+            result = self._result(image, terms, regions, [], "pdf_multpage")
+            result.update({"page_count": document.page_count, "pages_analyzed": page_count,
+                           "truncated": document.page_count > page_count})
+            return result
         except (ValueError, RuntimeError):
             raise
         except Exception as exc:
@@ -105,7 +143,7 @@ class DocumentService:
         for paragraph in paragraphs:
             wrapped.extend(textwrap.wrap(paragraph, width=85, break_long_words=False) or [""])
             wrapped.append("")
-        height = min(2200, max(900, margin * 2 + len(wrapped) * line_height))
+        height = max(900, margin * 2 + len(wrapped) * line_height)
         image = Image.new("RGB", (width, height), "#ffffff")
         draw = ImageDraw.Draw(image)
         try:
@@ -134,7 +172,7 @@ class DocumentService:
     @staticmethod
     def _result(image: Image.Image, terms: list, detections: list, unknown: list, method: str) -> dict:
         output = io.BytesIO()
-        image.save(output, format="JPEG", quality=88, optimize=True)
+        image.save(output, format="JPEG", quality=80, optimize=True)
         return {
             "detected_terms": terms,
             "ocr_items": detections,

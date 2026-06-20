@@ -114,6 +114,49 @@ window.FalconOverlay = (() => {
     marker.addEventListener("pointercancel", finish);
   }
 
+  function triggerDotAtText(event, region, layout) {
+    const selection = window.getSelection();
+    if (selection && !selection.isCollapsed && selection.toString().trim()) return;
+    const existingMarkers = [...overlay.querySelectorAll(".term-marker")];
+    if (existingMarkers.length >= 3) {
+      (overlay.querySelector(".term-marker.user-triggered") || existingMarkers[existingMarkers.length - 1]).remove();
+    }
+    const match = terms.find((item) =>
+      item.bbox?.every((value, index) => Math.abs(value - region.bbox[index]) < 2)
+      || String(region.text).toLowerCase().includes(String(item.term).toLowerCase())
+    );
+    const item = match || {
+      term: String(region.text).trim().slice(0, 58),
+      definition: "Select this phrase for a contextual summary and business meaning.",
+      confidence: Math.min(.72, Number(region.confidence || .75) * .72),
+      source: "ai_generated_unverified",
+      source_label: "Document context · needs verification",
+      category: "Document Context",
+      related_terms: [],
+      document_types: [],
+      bbox: region.bbox,
+    };
+    const overlayRect = overlay.getBoundingClientRect();
+    const marker = document.createElement("button");
+    marker.className = "term-marker user-triggered";
+    marker.type = "button";
+    marker.style.left = `${clamp(event.clientX - overlayRect.left - 9, 5, layout.viewRect.width - 23)}px`;
+    marker.style.top = `${clamp(event.clientY - overlayRect.top - 9, 5, layout.viewRect.height - 23)}px`;
+    marker.setAttribute("aria-label", `Explain ${item.term}`);
+    marker.innerHTML = "<span></span>";
+    let dragged = false;
+    enableDrag(marker, layout, () => { dragged = true; });
+    marker.onclick = (clickEvent) => {
+      clickEvent.stopPropagation();
+      if (dragged) {
+        dragged = false;
+        return;
+      }
+      openPopover(item, marker, layout);
+    };
+    overlay.appendChild(marker);
+  }
+
   function openPopover(item, marker, layout) {
     closePopover();
     marker.classList.add("active");
@@ -160,6 +203,7 @@ window.FalconOverlay = (() => {
       span.style.width = `${Math.max(8, (x2 - x1) * layout.scale)}px`;
       span.style.height = `${Math.max(12, (y2 - y1) * layout.scale)}px`;
       span.style.fontSize = `${clamp((y2 - y1) * layout.scale * 0.72, 8, 24)}px`;
+      span.addEventListener("click", (event) => triggerDotAtText(event, region, layout));
       layer.appendChild(span);
     });
     const explainSelection = () => {

@@ -144,8 +144,12 @@ class GlossaryService:
                         "ocr_confidence": region.get("confidence", 1.0),
                         "language": region.get("language", "en"),
                     })
+                    knowledge_confidence = float(definition["confidence"])
+                    recognition_confidence = float(region.get("confidence", 1.0))
+                    # Calibrate two independent signals instead of multiplying them into an
+                    # artificially low score. OCR remains the dominant factor.
                     definition["confidence"] = round(
-                        definition["confidence"] * float(region.get("confidence", 1.0)), 3
+                        0.72 * recognition_confidence + 0.28 * knowledge_confidence, 3
                     )
                     found.append(definition)
         return found

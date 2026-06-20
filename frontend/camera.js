@@ -218,16 +218,16 @@
     const objectUrl = URL.createObjectURL(file);
     try {
       const image = await loadImage(objectUrl);
-      const maxEdge = 1600;
+      const maxEdge = 1400;
       const scale = Math.min(1, maxEdge / Math.max(image.naturalWidth, image.naturalHeight));
-      if (scale === 1 && file.size < 2.5 * 1024 * 1024) {
+      if (scale === 1 && file.size < 2 * 1024 * 1024) {
         return { base64: await readBase64(file), filename: file.name };
       }
       const canvas = document.createElement("canvas");
       canvas.width = Math.max(1, Math.round(image.naturalWidth * scale));
       canvas.height = Math.max(1, Math.round(image.naturalHeight * scale));
       canvas.getContext("2d").drawImage(image, 0, 0, canvas.width, canvas.height);
-      const blob = await new Promise((resolve) => canvas.toBlob(resolve, "image/jpeg", 0.84));
+      const blob = await new Promise((resolve) => canvas.toBlob(resolve, "image/jpeg", 0.80));
       return { base64: await readBase64(blob), filename: "optimized-upload.jpg" };
     } finally {
       URL.revokeObjectURL(objectUrl);

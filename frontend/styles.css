@@ -50,7 +50,7 @@ main { width: 100%; max-width: 1320px; margin: auto; padding: 30px 14px calc(64p
 .scanner-shell { display: flex; flex-direction: column; min-height: 0; overflow: hidden; background: var(--white); border: 1px solid rgba(20,35,31,.06); border-radius: 20px; box-shadow: var(--shadow); transition: grid-template-columns .42s cubic-bezier(.22,1,.36,1); }
 .viewport { position: relative; min-height: min(62svh, 560px); background: radial-gradient(circle at center, #23423a, #071a18 72%); overflow: hidden; }
 .viewport video { position: absolute; width: 100%; height: 100%; object-fit: contain; }
-.document-scroller { position: absolute; inset: 0; z-index: 1; overflow: auto; overscroll-behavior: contain; scrollbar-gutter: stable; scrollbar-color: #71827c #162a25; scrollbar-width: auto; background: #152622; }
+.document-scroller { position: absolute; inset: 0; z-index: 1; overflow: auto; overscroll-behavior: contain; scrollbar-gutter: stable; scrollbar-color: #71827c #162a25; scrollbar-width: auto; background: #152622; -webkit-overflow-scrolling: touch; touch-action: pan-x pan-y; }
 .document-scroller[hidden] { display: none; }
 .document-scroller::-webkit-scrollbar { width: 11px; height: 11px; }
 .document-scroller::-webkit-scrollbar-track { background: #162a25; }
@@ -80,7 +80,9 @@ main { width: 100%; max-width: 1320px; margin: auto; padding: 30px 14px calc(64p
 .document-info span { display: grid; place-items: center; width: 25px; height: 25px; background: var(--lime); color: var(--dark); border-radius: 50%; font-family: Georgia, serif; font-weight: 800; }
 .document-info b { display: none; font-size: 10px; }
 .selection-layer { position: absolute; inset: 0; z-index: 2; pointer-events: none; }
-.selectable-region { position: absolute; display: block; overflow: hidden; color: transparent; line-height: 1; white-space: pre-wrap; user-select: text; -webkit-user-select: text; pointer-events: auto; cursor: text; }
+.selectable-region { position: absolute; display: block; overflow: hidden; color: transparent; line-height: 1; white-space: pre-wrap; user-select: text; -webkit-user-select: text; pointer-events: auto; cursor: text; touch-action: pan-x pan-y; }
+.term-marker.user-triggered { animation: marker-pulse .28s cubic-bezier(.22,1,.36,1); }
+@keyframes marker-pulse { from { opacity: 0; transform: scale(.2); } 70% { transform: scale(1.25); } }
 .selectable-region::selection { background: rgba(201,242,87,.72); color: rgba(8,28,24,.9); }
 @keyframes pop { from { scale: .2; opacity: 0; } }
 .corner { position: absolute; width: 34px; height: 34px; border-color: var(--lime); border-style: solid; opacity: .8; }
