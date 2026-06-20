@@ -90,7 +90,7 @@ main { width: 100%; max-width: 1320px; margin: auto; padding: 30px 14px calc(64p
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
-.intro > div > p:last-child { max-width: 680px; margin: 0; color: var(--muted); line-height: 1.55; font-size: 14px; }
+.intro > div > p:last-child { max-width: none; margin: 0; color: var(--muted); line-height: 1.55; font-size: 14px; }
 .eyebrow { margin: 0 0 8px; color: var(--green); font-size: 9px; letter-spacing: .18em; font-weight: 800; }
 
 /* Private by design trust-note */
